@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class AuthController extends CI_Controller {
     public function index()
     {		 
-        $this->load->view('register');
+        $this->load->view('homePage');
     }
 
     public function viewRouteControll($viewName){
@@ -82,19 +82,19 @@ class AuthController extends CI_Controller {
                 // $this->load->view('register');
                 $data['info'] = $this->UserModel->showUserData($userID);
 
-				// if($userID==1 || $userID==2 || $userID==3 || $userID==4 || $userID==5 || $userID==6 || $userID==7){
-				// 	$this->load->view('admin_index.php',$data);
-				// }else{
-			    // //$this->load->library('session');
-		        //     $this->session->set_userdata('userID', $userID);				
+				if ($userID==1 || $userID==2 ){
+					$this->load->view('adminHomePage.php',$data);
+				} else {
+                    $this->session->set_userdata('userID', $userID);				
 				
-				//     $this->load->view('user_index.php',$data);
-			    // }
+				    $this->load->view('userHomePage.php',$data);
+			    }
             }
         }
 
-
     }
+
+    
 
 
 

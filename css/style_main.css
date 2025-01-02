@@ -13,7 +13,7 @@ body {
     margin: 0 auto;
 }
 
-.header {
+/* .header {
     background: url('pic/bg header.jpg') no-repeat center center; 
     background-size: cover;
     color: #ffffff;
@@ -21,6 +21,16 @@ body {
     position: relative;
     overflow: hidden;
     text-align: center;
+} */
+
+
+/* Header background image */
+.header {
+    background-image: url('../pic/bgHeader.png');
+    background-size: cover;
+    background-position: center;
+    color: white; /* Ensures text is readable on the image */
+    padding: 20px 0; /* Adjust padding as needed */
 }
 
 .header .logo {
@@ -145,14 +155,23 @@ body {
     opacity: 0.8;
 }
 
-.footer {
-    /* background: url('pic/bg footer.png') no-repeat center center;  */
+/* .footer {
+    background: url('pic/bg footer.png') no-repeat center center;  
     background-size: cover;
     background-color: #859eb9;
     text-align: center;
     padding: 2rem 0;
     margin-top: 2rem;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+} */
+
+/* Footer background image */
+.footer {
+    background-image: url('../pic/bgFooter.png');
+    background-size: cover;
+    background-position: center;
+    color: white; /* Ensures text is readable on the image */
+    padding: 20px 0; /* Adjust padding as needed */
 }
 
 .footer p {
@@ -260,4 +279,16 @@ a {
     .product-grid {
         grid-template-columns: 1fr;
     }
+}
+
+
+
+/* Ensure text and links are visible on the background */
+.header a, .footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.header a:hover, .footer a:hover {
+    text-decoration: underline;
 }
