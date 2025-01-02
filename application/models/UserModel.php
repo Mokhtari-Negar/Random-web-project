@@ -12,7 +12,7 @@ class UserModel extends CI_Model {
     // Insert user data into the database
     public function insertUser($data) {
 
-        $result=$this->db->insert('users', $data);  // 'users' is your table name
+        $result=$this->db->insert('users', $data);  // 'users' is table name
         return $result;
     }
 
