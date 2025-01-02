@@ -89,7 +89,8 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form');
+$autoload['helper'] = array('url');
+// $autoload['helper'] = array('url', 'form'); // bahar zade bod
 
 /*
 | -------------------------------------------------------------------
@@ -133,5 +134,5 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array('UserModel');
-$autoload['controller'] = array('AuthController');
+// $autoload['controller'] = array('AuthController');
 

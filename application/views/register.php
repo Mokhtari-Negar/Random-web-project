@@ -35,7 +35,7 @@
 
 
          <!-- Link to login page -->
-    <p style="color:#0d0e2e;">Already have an account? <a href="<?php echo base_url() ?>index.php/AuthController/login" >Login here</a></p>
+    <p style="color:#0d0e2e;">Already have an account? <a href="<?php echo base_url() ?>index.php/AuthController/viewRouteControll/login" >Login here</a></p>
     </form>
 
    
