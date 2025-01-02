@@ -60,6 +60,44 @@ class AuthController extends CI_Controller {
         }
     } 
 
+    public function login_user(){
+
+        $this->load->model('UserModel');
+
+        $email=$this->input->post('email');
+        $password=$this->input->post('password');
+
+        $result=$this->UserModel->chekUserExist($email,$password);
+
+        if ($result==False){
+            $this->session->set_flashdata('error','Wrong pass or email!');
+            $this->load->view('login');
+        } else {
+            $this->load->model('UserModel');
+            $userID= $this->UserModel->get_User_ID($email);
+
+            if($userID){
+			    $this->load->library('session');
+		        $this->session->set_userdata('userID', $userID);
+                // $this->load->view('register');
+                $data['info'] = $this->UserModel->showUserData($userID);
+
+				// if($userID==1 || $userID==2 || $userID==3 || $userID==4 || $userID==5 || $userID==6 || $userID==7){
+				// 	$this->load->view('admin_index.php',$data);
+				// }else{
+			    // //$this->load->library('session');
+		        //     $this->session->set_userdata('userID', $userID);				
+				
+				//     $this->load->view('user_index.php',$data);
+			    // }
+            }
+        }
+
+
+    }
+
+
 
 }
+
 
