@@ -101,15 +101,37 @@ class UserModel extends CI_Model {
 		 return $query->result_array();
     }
 
-    //delete poem main admin:
-	public function deletePoem($poemid) {
-        $sql="delete from poem where id=".$poemid;
+    public function insertProduct ($productData) {
 
-		 $query= $this->db->query($sql);
-		 if($query){
+        $result=$this->db->insert('products', $productData); 
+        return $result;
+    }
+
+    public function updateProduct($productID) {
+
+        $sql="update products set Name='".$_POST['name']."' , Description='".$_POST['description']."', Price='".$_POST['price']."' , Stock='".$_POST['stock']."' , CategoryID='".$_POST['catID']."' , ImageURL='".$_POST['imageName']."' where ProductID=".$productID;
+        $query = $this->db->query($sql);
+
+        if($query) {
+
+            return true;
+        } else {
+
+            return false;
+        }
+        
+    }
+
+	public function deleteProduct($productID) {
+
+        $sql="delete from products where ProductID=".$productID;
+        $query= $this->db->query($sql);
+        
+        if ($query) {
+
 			return true;
-		}
-		else{
+		} else {
+
 			return false;
 		}
 		
@@ -118,3 +140,6 @@ class UserModel extends CI_Model {
 
 
 }
+
+
+// EOF

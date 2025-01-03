@@ -69,17 +69,20 @@ class AuthController extends CI_Controller {
 
         $result=$this->UserModel->chekUserExist($email,$password);
 
-        if ($result==False){
+        if ($result==False) {
+
             $this->session->set_flashdata('error','Wrong pass or email!');
             $this->load->view('login');
         } else {
+
             $this->load->model('UserModel');
             $userID= $this->UserModel->get_User_ID($email);
 
-            if($userID){
+            if ($userID) {
+
 			    $this->load->library('session');
 		        $this->session->set_userdata('userID', $userID);
-                // $this->load->view('register');
+
                 $data['info'] = $this->UserModel->showUserData($userID);
 
 				if ($userID==1 || $userID==2 ){
@@ -205,10 +208,10 @@ class AuthController extends CI_Controller {
 
             if($result) {
                 
-                $this->load->view('user_success_alert',$data);
+                $this->load->view('success_alert',$data);
             } else {
                 
-                $this->load->view('user_error_alert',$data);
+                $this->load->view('error_alert',$data);
     		}
 
         }
@@ -266,119 +269,112 @@ class AuthController extends CI_Controller {
         $this->load->view('productListPage',$data);
     }
 
-    //Insert Poem Methods:
+    // Insert Product
 	public function insertProduct() {
 
         $this->load->library('session');
         $adminID = $this->session->userdata('userID');
+
         $this->load->model('UserModel');
 
-        $data['info'] = $this->UserModel->showUserInformation($adminID);
+        $data['info'] = $this->UserModel->showUserData($adminID);
     
-        //form validation
-        
+        // form validation
         $this->load->library('form_validation');	
             
-        $this->form_validation->set_rules('name', 'عنوان شعر', 'required');		
-        $this->form_validation->set_rules('poem', ' متن شعر ', 'required');
-        $this->form_validation->set_rules('book', ' اثر شاعر ', 'required');
-        $this->form_validation->set_rules('form', ' قالب شعر ', 'required');
-        $this->form_validation->set_rules('pname', ' شاعر ', 'required');
+        $this->form_validation->set_rules('name', 'نام محصول', 'required');		
+        $this->form_validation->set_rules('price', 'قیمت', 'required');
+        $this->form_validation->set_rules('stock', 'تعداد', 'required');
+        $this->form_validation->set_rules('catID', 'دسته‌بندی', 'required');
         $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
         
-        if ($this->form_validation->run() == FALSE){
-            if($adminID==1 || $adminID==2){
-                $this->load->view('insert_admin1',$data);
-            }
-            else if($adminID==3){
-                $this->load->view('insert_admin3',$data);
-            }
-            else if($adminID==4){
-                $this->load->view('insert_admin4',$data);
-            }
-            else if($adminID==5){
-                $this->load->view('insert_admin5',$data);
-            }
-            else if($adminID==6){
-                $this->load->view('insert_admin6',$data);
-            }
-            else if($adminID==7){
-                $this->load->view('insert_main_admin',$data);
-            }
-            
+        if ($this->form_validation->run() == FALSE) {
 
-        }else{
-            $result=$this->UserModel->insertPoem($_POST,$adminID);
+            $this->load->view('insertProductPage',$data);
+        } else {
+
+            $productData = array(
+                'Name' =>  $this->input->post('name'),
+                'Description' =>  $this->input->post('description'),
+                'Price' =>  $this->input->post('price'),
+                'Stock' =>  $this->input->post('stock'),
+                'CategoryID' =>  $this->input->post('catID'),
+                'ImageURL' => "../pic/". $this->input->post('imageName'),
+            );
+
+            $result=$this->UserModel->insertProduct($productData);
             
             if($result==true){
                 
-                $this->load->view('admin_success_alert',$data);
+                $this->load->view('success_alert',$data);
             }
             else{
-                $this->load->view('admin_error_alert',$data);
+                $this->load->view('error_alert',$data);
             }
         }		 
             
     }	
 
-    public function editProduct() {
+    public function editProduct($productID) {
 		 
 		$this->load->library('session');
 		$adminID = $this->session->userdata('userID');
+
 		$this->load->model('UserModel');
 		 
-		 //form validation:
-		 $this->load->library('form_validation');	
-		
-	   $this->form_validation->set_rules('name', 'عنوان شعر', 'required');		
-	   $this->form_validation->set_rules('poem', ' متن شعر ', 'required');
-	   $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
-		 
-	   if ($this->form_validation->run() == FALSE){
-		   $data1 = $this->UserModel->showUserInformation($adminID);
-           $data2 = $this->UserModel->fetchPoemValue($_POST['id']);
+        $data1 = $this->UserModel->showUserData($adminID);
+        $data['data1'] = json_encode($data1);
 
-           $data['data1'] = json_encode($data1);
+        //form validation
+        $this->load->library('form_validation');	
+		
+        $this->form_validation->set_rules('name', 'نام محصول', 'required');		
+        $this->form_validation->set_rules('price', 'قیمت', 'required');
+        $this->form_validation->set_rules('stock', 'تعداد', 'required');
+        $this->form_validation->set_rules('catID', 'دسته‌بندی', 'required');
+        $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
+         
+	   if ($this->form_validation->run() == FALSE){
+
+           $data2 = $this->UserModel->showProduct($productID);
            $data['data2'] = json_encode($data2);
 		   
-		 if($adminID==1 || $adminID==2){
-			$this->load->view('EditPoem_admin1', $data);
-		 }
-		 else if ($adminID==3){
-			$this->load->view('EditPoem_admin3', $data);
-		 }
-		 else if ($adminID==4){
-			$this->load->view('EditPoem_admin4', $data);
-		 }
-		 else if ($adminID==5){
-			$this->load->view('EditPoem_admin5', $data);
-		 }
-		 else if ($adminID==6){
-			$this->load->view('EditPoem_admin6', $data);
-		 }
-		 else if ($adminID==7){
-			$this->load->view('EditPoem_main_admin', $data);
-		 }
+           $this->load->view('editProductPage', $data);
+		
+        } else {
 
-	   }else{
-          $data['info'] = $this->UserModel->showUserInformation($adminID);
-      
-		 $result=$this->UserModel->updatePoem($adminID,$_POST['id']);
-		 
-		 
-		 if($result==true){
-			
-			$this->load->view('admin_success_alert',$data);
-		 }
-		 else{
-			$this->load->view('admin_error_alert',$data);
-		 }		   
-	   }
+            $result = $this->UserModel->updateProduct($productID);
+            
+            if ($result==true) {
+            
+                $this->load->view('success_alert',$data);
+            } else {
+
+                $this->load->view('error_alert',$data);
+            }	
+            
+	    }
 		 
 	}
     
-    public function deleteProduct () {
+    public function deleteProduct ($productID) {
 
+        $this->load->library('session');
+        $adminID = $this->session->userdata('userID');
+
+        $this->load->model('UserModel');
+
+        $data['info'] = $this->UserModel->showUserData($adminID);
+
+        $result = $this->UserModel->deleteProduct($productID);
+
+        if ($result==true) {
+                
+            $this->load->view('success_alert',$data);
+        } else {
+
+            $this->load->view('error_alert',$data);
+        }
 
     }
     
