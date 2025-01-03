@@ -173,7 +173,7 @@ class UserModel extends CI_Model {
 
     public function deleteOrderDetail ($orderID) {
 
-        $sql="DELETE FROM `orderdetails` INNER JOIN `orders` ON orderdetails.OrderID = orders.OrderID WHERE orders.OrderID = ".$orderID;
+        $sql="DELETE FROM `orderdetails` WHERE OrderID = ".$orderID;
         $query= $this->db->query($sql);
         
         if ($query) {
