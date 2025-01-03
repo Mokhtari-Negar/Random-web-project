@@ -59,17 +59,27 @@ class UserModel extends CI_Model {
     }
 
     // insert comment
-	public function insertComment($data){
+	public function insertComment($data) {
 		$result=$this->db->insert('comments', $data);
         return $result;
 	}
 	
-	//show comment:
-    public function showComments($productID){
+	//show comments of a product:
+    public function showComments($productID) {
 
         $query = "SELECT * from comments WHERE ProductID = ".$productID;
         $sql = $this->db->query($query);
         return $sql->result_array();
-    }	
+    }
+    
+    // show comments of a user
+    public function showUserComments($userID) {
+
+        $query = "SELECT * from comments WHERE UserID = ".$userID;
+        $sql = $this->db->query($query);
+        return $sql->result_array();
+    }
+
+
 
 }

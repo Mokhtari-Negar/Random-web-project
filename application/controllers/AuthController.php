@@ -141,6 +141,24 @@ class AuthController extends CI_Controller {
         $this->load->view('productPage',$data);	 		   
 
     }
+
+    // show comments of a user
+    public function showUserComments() {
+        
+        $this->load->library('session');
+        $userID = $this->session->userdata('userID');
+		
+		$this->load->model('UserModel');
+
+        $data1 = $this->UserModel->showUserData($userID);
+        $data2 = $this->UserModel->showUserComments($userID);
+
+        $data['data1'] = json_encode($data1);
+        $data['data2'] = json_encode($data2);
+
+        $this->load->view('commentPage',$data);
+
+    }
     
 	// Edit User Information Task
 	public function showUserData() {	
@@ -184,7 +202,7 @@ class AuthController extends CI_Controller {
 
             $result=$this->UserModel->updateData($userID);
             $data['info'] = $this->UserModel->showUserData($userID);
-            
+
             if($result) {
                 
                 $this->load->view('user_success_alert',$data);
@@ -196,11 +214,28 @@ class AuthController extends CI_Controller {
         }
 
 	 
-    }	 
-         
+    }	
+    
+    public function logOut() {
 
+        $this->load->library('session');
+
+        // Destroy the session
+        $this->session->sess_destroy();
+
+        // Redirect back to the previous page using HTTP_REFERER
+        $referer = $this->input->server('HTTP_REFERER'); // Get the referring URL
+        if ($referer) {
+            redirect($referer); // Redirect to the previous page
+        } else {
+            // If no referer found, redirect to a default page (like the homepage or login page)
+            redirect('login');
+        }
+
+    }
 
 
 }
 
 
+// EOF
