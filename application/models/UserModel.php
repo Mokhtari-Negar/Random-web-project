@@ -38,11 +38,25 @@ class UserModel extends CI_Model {
 		}
     }
 
-    public function showUserData($userID){
+    public function showUserData($userID) {
 		$sql="select * from users where UserID=".$userID;		
 		$query = $this->db->query($sql);
         return $query->result_array();
 	}
+
+    public function updateData($userID) {
+
+        $sql="update users set FullName='".$_POST['fullName']."' , Email='".$_POST['email']."', Password='".$_POST['password']."' , PhoneNumber='".$_POST['phoneNum']."' , Address='".$_POST['address']."' where UserID=".$userID;
+		$query = $this->db->query($sql);
+
+		if($query) {
+
+			return true;
+		} else {
+
+			return false;
+		}
+    }
 
     // insert comment
 	public function insertComment($data){

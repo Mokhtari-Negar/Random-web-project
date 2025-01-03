@@ -106,65 +106,97 @@ class AuthController extends CI_Controller {
         $this->form_validation->set_rules('comment', ' متن دیدگاه ', 'required');
         $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
         
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == TRUE) {
 
-            $data1 = $this->UserModel->showUserInformation($userID);
-            $data2 = $this->UserModel->showAPoem($productID);
-            $data3 = $this->UserModel->poetPic($productID);
-            $data4 = $this->UserModel->showComments($productID);
-    
-            $data['data1'] = json_encode($data1);
-            $data['data2'] = json_encode($data2);
-            $data['data3'] = json_encode($data3);
-            $data['data4'] = json_encode($data4);
-            
-        //     if($userID==1|$userID==2|$userID==3|$userID==4|$userID==5|$userID==6|$userID==7){
-        //         $this->load->view('admin_inside_poem', $data);
-                
-        //     } else {
-                $this->load->view('productPage',$data);	 
-        //     }
-            
-        } else {
-
-            $data = array(
+            $insertData = array(
                 'UserName' => $this->input->post('userName'),
                 'UserID' => $userID,
                 'ProductID' => $productID,
                 'Comment' =>$this->input->post('comment')
             );
 
-            $result=$this->UserModel->insertComment($data);
-            
-            $data1 = $this->UserModel->showUserInformation($userID);
-            $data2 = $this->UserModel->showAPoem($productID);
-            $data3 = $this->UserModel->poetPic($productID);
-            $data4 = $this->UserModel->showComments($productID);
-    
-            $data['data1'] = json_encode($data1);
-            $data['data2'] = json_encode($data2);
-            $data['data3'] = json_encode($data3);
-            $data['data4'] = json_encode($data4);
-            
-                
-            if($result){
+            $result=$this->UserModel->insertComment($insertData);
+
+            if(!$result){
                 // if($userID==1|$userID==2|$userID==3|$userID==4|$userID==5|$userID==6|$userID==7){
                 // $this->load->view('admin_inside_poem', $data);
                 
-                // }else{
-                $this->load->view('productPage',$data);		 
-                // }
-                
-            } else {
+                // }else{}
 
-                $this->session->set_flashdata('error','Something went wrong!');		 
-            }
-                
-        }		   
+                $this->session->set_flashdata('error','Something went wrong!');
+            }    
+               
+        }
+
+        $data1 = $this->UserModel->showUserData($userID);
+        $data2 = $this->UserModel->showAPoem($productID);
+        $data3 = $this->UserModel->poetPic($productID);
+        $data4 = $this->UserModel->showComments($productID);
+
+        $data['data1'] = json_encode($data1);
+        $data['data2'] = json_encode($data2);
+        $data['data3'] = json_encode($data3);
+        $data['data4'] = json_encode($data4);
+
+        $this->load->view('productPage',$data);	 		   
 
     }
-
     
+	// Edit User Information Task
+	public function showUserData() {	
+		
+	    $this->load->library('session');
+        $userID = $this->session->userdata('userID');
+		
+		$this->load->model('UserModel');
+
+        $data['info'] = $this->UserModel->showUserData($userID);
+        $this->load->view('editUserData', $data);
+	}
+
+	public function updateData() {
+
+        $this->load->library('session');
+        $userID = $this->session->userdata('userID');
+
+        $this->load->model('UserModel');
+
+		$this->load->library('form_validation');
+
+        $this->form_validation->set_rules('fname', 'نام', 'required|min_length[2]|regex_match[/^[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+(\s[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+)*$/]');
+		$this->form_validation->set_rules('lname', 'نام خانوادگی', 'required|min_length[3]|regex_match[/^[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+(\s[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+)*$/]');
+		$this->form_validation->set_rules('email', 'ایمیل', 'valid_email|callback_check_unique_email');
+	    $this->form_validation->set_rules('pass', 'رمز عبور', 'required|min_length[8]|callback_password_check');
+		$this->form_validation->set_rules('user', 'نام کاربری', 'required|callback_check_unique_username');
+	
+		$this->form_validation->set_message('regex_match', '%s باید فقط شامل حروف الفبا باشد.');
+		$this->form_validation->set_message('min_length', 'حداقل طول %s %s کاراکتر است.');
+		$this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
+		$this->form_validation->set_message('valid_email', '%s باید طبق فرمت درستی وارد شود.');
+		$this->form_validation->set_message('check_unique_email', 'ایمیل وارد شده تکراری است.');
+		$this->form_validation->set_message('check_unique_username', 'نام کاربری وارد شده تکراری است.');
+	
+	    if ($this->form_validation->run() == FALSE) {
+
+            $data['info'] = $this->UserModel->showUserData($userID);
+            $this->load->view('editUserData', $data);
+        } else {
+
+            $result=$this->UserModel->updateData($userID);
+            $data['info'] = $this->UserModel->showUserData($userID);
+            
+            if($result) {
+                
+                $this->load->view('user_success_alert',$data);
+            } else {
+                
+                $this->load->view('user_error_alert',$data);
+    		}
+
+        }
+
+	 
+    }	 
          
 
 
