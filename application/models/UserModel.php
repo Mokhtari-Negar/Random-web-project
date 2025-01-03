@@ -80,6 +80,41 @@ class UserModel extends CI_Model {
         return $sql->result_array();
     }
 
+    public function showProduct ($productID) {
+
+        $sql="select * from products where ProductID=".$productID;
+		$query = $this->db->query($sql);
+		 return $query->result_array();
+    }
+
+    public function productList () {
+
+        $sql="select * from products";
+		$query = $this->db->query($sql);
+		 return $query->result_array();
+    }
+
+    public function productCategorizedList ($categoryID) {
+
+        $sql="select * from products where CategoryID=".$categoryID;
+		$query = $this->db->query($sql);
+		 return $query->result_array();
+    }
+
+    //delete poem main admin:
+	public function deletePoem($poemid) {
+        $sql="delete from poem where id=".$poemid;
+
+		 $query= $this->db->query($sql);
+		 if($query){
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+	}
+
 
 
 }
