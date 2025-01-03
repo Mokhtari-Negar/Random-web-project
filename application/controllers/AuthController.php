@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class AuthController extends CI_Controller {
     public function index()
     {		 
-        $this->load->view('homePage');
+        $this->load->view('register');
     }
 
     public function viewRouteControll($viewName){
@@ -376,6 +376,125 @@ class AuthController extends CI_Controller {
             $this->load->view('error_alert',$data);
         }
 
+    }
+
+    public function addToCart () {
+
+        $this->load->library('session');
+        $userID = $this->session->userdata('userID');
+        
+        $this->load->model('UserModel');
+
+        $data1 = $this->UserModel->showUserData($userID);
+        $data['data1'] = json_encode($data1);
+
+        $orderData = array (
+            'UserID' => $userID,
+        );
+
+        $orderResult = $this->UserModel->insertOrder($orderData);
+
+        if ($orderResult != false) {
+            
+            $orderDetailData = array(
+                'OrderID' => $orderResult,
+                'ProductID' => $_POST['productID'],
+                'Quantity' => $_POST['quantity'],
+                'Price' => $_POST['price'],
+                'TotalAmount' => $_POST['quantity'] * $_POST['price']
+            );
+
+            $orderDetailResult = $this->UserModel->insertOrderDetail($orderDetailData);
+
+            if ($orderDetailResult) {
+                
+                $this->load->view('success_alert',$data);
+            } else {
+            
+                $deleteOrderResult = $this->UserModel->deleteOdrer($orderResult);
+                if ($deleteOrderResult) {
+
+                    $this->load->view('error_alert',$data);
+                } else {
+
+                    echo "database ro dadi fana!";
+                }
+            }
+        } else {
+        
+            $this->load->view('error_alert',$data);
+        }
+
+    }
+
+    public function deleteFromCart ($orderID) {
+
+        $this->load->library('session');
+        $userID = $this->session->userdata('userID');
+
+        $this->load->model('UserModel');
+
+        $data['info'] = $this->UserModel->showUserData($userID);
+
+        $orderResult = $this->UserModel->deleteOdrer($orderID);
+        $orderDetailResult = $this->UserModel->deleteOdrerDetail($orderID);
+
+        if ($orderResult and $orderDetailResult) {
+
+            $this->load->view('success_alert',$data); 
+        } else {
+
+            $this->load->view('error_alert',$data);
+        }
+        
+    }
+
+    public function showCartItems () {
+
+        $this->load->library('session');
+        $userID= $this->session->userdata('userID');
+         
+        $this->load->model('UserModel');		  
+            
+        $data1 = $this->UserModel->showUserData($userID);
+        $data2 = $this->UserModel->showCartList($userID);
+
+        $data['data1'] = json_encode($data1);
+        $data['data2'] = json_encode($data2);
+            
+        $this->load->view('productListPage',$data);
+    }
+
+    public function purchase () {
+        
+        $this->load->library('session');
+        $userID = $this->session->userdata('userID');
+        
+        $this->load->model('UserModel');
+
+        $$data['info'] = $this->UserModel->showUserData($userID);
+
+        $quantity = $_POST['quantity'];
+        $productID = $_POST['productID'];
+        $orderID = $_POST['orderID'];
+
+        $checkResult = $this->UserModel->checkProductStock ($productID,$quantity);
+        if ($checkResult) {
+
+            $stockResult = $this->UserModel->updateProductStock($productID,$quantity);
+            $statusResult = $this->UserModel->updateOrderStatus($orderID);
+
+            if ($statusResult and $stockResult) {
+
+                $this->load->view('success_alert',$data);
+            } else {
+
+                $this->load->view('error_alert',$data);
+            }
+        } else {
+
+            $this->load->view('error_alert',$data);
+        }
     }
     
     public function logOut() {

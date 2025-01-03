@@ -84,7 +84,7 @@ class UserModel extends CI_Model {
 
         $sql="select * from products where ProductID=".$productID;
 		$query = $this->db->query($sql);
-		 return $query->result_array();
+		return $query->result_array();
     }
 
     public function productList () {
@@ -98,7 +98,7 @@ class UserModel extends CI_Model {
 
         $sql="select * from products where CategoryID=".$categoryID;
 		$query = $this->db->query($sql);
-		 return $query->result_array();
+        return $query->result_array();
     }
 
     public function insertProduct ($productData) {
@@ -137,7 +137,96 @@ class UserModel extends CI_Model {
 		
 	}
 
+    public function insertOrder($data) {
+        
+        $result = $this->db->insert('orders', $data);
+        if ($result) {
 
+            $output = $this->db->insert_id();
+            return $output; 
+        } else {
+
+            return false;
+        }
+
+    }
+
+    public function insertOrderDetail($data) {
+        
+        $result = $this->db->insert('orderdetails', $data);
+        return $result;
+    }
+
+    public function deleteOdrer ($orderID) {
+        
+        $sql="delete from orders where OrderID=".$orderID;
+        $query= $this->db->query($sql);
+        
+        if ($query) {
+
+			return true;
+		} else {
+
+			return false;
+		}
+    }
+
+    public function deleteOrderDetail ($orderID) {
+
+        $sql="DELETE FROM `orderdetails` INNER JOIN `orders` ON orderdetails.OrderID = orders.OrderID WHERE orders.OrderID = ".$orderID;
+        $query= $this->db->query($sql);
+        
+        if ($query) {
+
+			return true;
+		} else {
+
+			return false;
+		}
+    }
+
+    public function showCartList($userID) {
+
+        $sql = "SELECT * FROM `orderdetails` INNER JOIN `orders` ON orderdetails.OrderID = orders.OrderID WHERE orders.UserID = ".$userID." ORDER BY Status ASC";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+   public function updateOrderStatus ($orderID) {
+    
+        $sql = "update orders set Status='".$_POST['status']."' where OrderID=".$orderID;
+        $query= $this->db->query($sql);
+        
+        if ($query) {
+
+			return true;
+		} else {
+
+			return false;
+		}
+    }
+
+    public function updateProductStock ($productID,$quantity) {
+
+        $sql = "update products set Stock= Stock -'".$quantity."' where ProductID=".$productID;
+        $query= $this->db->query($sql);
+
+        if ($query) {
+
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+
+    public function checkProductStock ($productID,$quantity) {
+
+        $sql = "SELECT * FROM `products` WHERE Stock > ".$quantity." AND PruductID = ".$productID;
+        $query= $this->db->query($sql);
+        return $query->num_rows() > 0;
+    }
+    
 
 }
 
