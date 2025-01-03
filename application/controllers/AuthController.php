@@ -94,7 +94,78 @@ class AuthController extends CI_Controller {
 
     }
 
+    public function insertComment($productID) {
+
+        $this->load->library('session');
+        $userID = $this->session->userdata('userID');		
+        $this->load->model('UserModel');
+        
+        $this->load->library('form_validation');	
+        
+        $this->form_validation->set_rules('name', ' نام ', 'required');		
+        $this->form_validation->set_rules('comment', ' متن دیدگاه ', 'required');
+        $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
+        
+        if ($this->form_validation->run() == FALSE) {
+
+            $data1 = $this->UserModel->showUserInformation($userID);
+            $data2 = $this->UserModel->showAPoem($productID);
+            $data3 = $this->UserModel->poetPic($productID);
+            $data4 = $this->UserModel->showComments($productID);
     
+            $data['data1'] = json_encode($data1);
+            $data['data2'] = json_encode($data2);
+            $data['data3'] = json_encode($data3);
+            $data['data4'] = json_encode($data4);
+            
+        //     if($userID==1|$userID==2|$userID==3|$userID==4|$userID==5|$userID==6|$userID==7){
+        //         $this->load->view('admin_inside_poem', $data);
+                
+        //     } else {
+                $this->load->view('productPage',$data);	 
+        //     }
+            
+        } else {
+
+            $data = array(
+                'UserName' => $this->input->post('userName'),
+                'UserID' => $userID,
+                'ProductID' => $productID,
+                'Comment' =>$this->input->post('comment')
+            );
+
+            $result=$this->UserModel->insertComment($data);
+            
+            $data1 = $this->UserModel->showUserInformation($userID);
+            $data2 = $this->UserModel->showAPoem($productID);
+            $data3 = $this->UserModel->poetPic($productID);
+            $data4 = $this->UserModel->showComments($productID);
+    
+            $data['data1'] = json_encode($data1);
+            $data['data2'] = json_encode($data2);
+            $data['data3'] = json_encode($data3);
+            $data['data4'] = json_encode($data4);
+            
+                
+            if($result){
+                // if($userID==1|$userID==2|$userID==3|$userID==4|$userID==5|$userID==6|$userID==7){
+                // $this->load->view('admin_inside_poem', $data);
+                
+                // }else{
+                $this->load->view('productPage',$data);		 
+                // }
+                
+            } else {
+
+                $this->session->set_flashdata('error','Something went wrong!');		 
+            }
+                
+        }		   
+
+    }
+
+    
+         
 
 
 
