@@ -17,16 +17,25 @@ class UserModel extends CI_Model {
     }
 
     
-    public function chekUserExist($email,$password) {
-        $query="select * from users where Email='".$email."' and Password='".$password."'";
+    public function chekUserExist($email) {
+        $query="select * from users where Email='".$email."'";
+
+        $condition = "/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/";
+
         $result=$this->db->query($query);
         
-        if ($result->num_rows()>0){
-            return true;
-        }
-        else{
+        if(preg_match($condition,$email)){
+		    if($result->num_rows()>0) {
+
+		        return true;
+	        } else {
+
+		        return false;
+	        }
+	    } else {
+		    
             return false;
-        }
+	    }
     }
 
     public function get_user_ID($email) {

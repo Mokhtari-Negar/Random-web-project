@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scarf Gallery</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/style_main.css">
     <link rel="shortcut icon" href="<?php echo base_url(); ?>pic/favicon.png" type="image/x-icon">
     <link href="<?php echo base_url(); ?>css/fontStyle.css" rel="stylesheet">
@@ -16,25 +15,105 @@
                  url('fonts/BNazanin.woff') format('woff');
         }
     </style>
-</head>
 
+<?php
+    if (isset($info)) {
+    foreach ($info as $key => $row) {
+        if ($row['UserID']==1 || $row['UserID']==2){
+   
+?>
+
+</head>
+<title>Scarf Gallery » Admin Panel</title>
 
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="snow"></div> 
+        <div class="snow">
         <div class="container">
-            <a style="color: rgb(255, 255, 255);" href="<?php echo base_url(); ?>"> <h1 class="logo">Scarf Gallery</h1></a>
+            <a style="color: rgb(255, 255, 255);" href="<?php echo base_url(); ?>"> 
+                <div class="logo">
+                    <h1>Scarf Gallery</h1>
+                </div>
+            </a>
             <nav class="nav">
-                <a href="register.html">عضویت</a>
-                <a href="login.html">ورود</a>
-                <a href="shopping cart.html">سبد خرید</a>
-                <a href="#">تخفیف شگفت‌انگیز</a>
+                <ul>
+                <li><a href="#">عضویت</a></li>
+                <li><a href="#">ورود</a></li>
+                <li><a href="#">سبد خرید</a></li>
+                <li><a href="#">درباره ما</a></li>
+                <li><a href="#">تماس با ما</a></li>
+            </ul>
             </nav>
         </div>
+        </div> 
+    </header>
+    <?php
+        } else {
+    ?>
+    
+</head>
+<title>Scarf Gallery » User Panel</title>
+
+<body>
+    <!-- Header -->
+    <<header class="header">
+        <div class="snow">
+        <div class="container">
+            <a style="color: rgb(255, 255, 255);" href="<?php echo base_url(); ?>"> 
+                <div class="logo">
+                    <h1>Scarf Gallery</h1>
+                </div>
+            </a>
+            <nav class="navbar">
+                <ul>
+                <li><a href="#">عضویت</a></li>
+                <li><a href="#">ورود</a></li>
+                <li><a href="#">سبد خرید</a></li>
+                <li><a href="#">درباره ما</a></li>
+                <li><a href="#">تماس با ما</a></li>
+            </ul>
+            </nav>
+        </div>
+        </div> 
+    </header>
+    <?php
+        }
+    }
+} else {
+    ?>
+    
+</head>
+<title>Scarf Gallery</title>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="snow">
+        <div class="container">
+            <a style="color: rgb(255, 255, 255);" href="<?php echo base_url(); ?>"> 
+                <div class="logo">
+                    <h1>Scarf Gallery</h1>
+                </div>
+            </a>
+            <nav class="navbar">
+                <ul>
+                <li><a href="#">عضویت</a></li>
+                <li><a href="#">ورود</a></li>
+                <li><a href="#">سبد خرید</a></li>
+                <li><a href="#">درباره ما</a></li>
+                <li><a href="#">تماس با ما</a></li>
+            </ul>
+            </nav>
+        </div>
+        </div> 
     </header>
 
+    <?php
+}
+    ?>
     
+
     <main class="main">
         <section class="winter-panel">
             <div class="container">
@@ -103,8 +182,4 @@
     
 </body>
 </html>
-
-
-
-
 

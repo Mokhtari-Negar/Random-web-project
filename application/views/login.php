@@ -15,7 +15,7 @@
     ?>
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+        <button type="submit" name="submit" id="submit">Login</button>
         <p>Don't have an account? <a href="<?php echo base_url() ?>index.php/AuthController/viewRouteControll/register" >Register</a></p>
     </form>
 </body>

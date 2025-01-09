@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class AuthController extends CI_Controller {
     public function index()
     {		 
-        $this->load->view('register');
+        $this->load->view('homePage');
     }
 
     public function viewRouteControll($viewName){
@@ -18,9 +18,17 @@ class AuthController extends CI_Controller {
             case "login":
                 $this->load->view('login');
                 break;
+            
+            case "about":
+                $this->load->view('about');
+                break;
 
-            case "editprofile":
-                echo "Your favorite color is green!";
+            case "contact":
+                $this->load->view('contact');
+                break;
+
+            case "dev":
+                $this->load->view('dev');
                 break;
 
             default:
@@ -67,7 +75,7 @@ class AuthController extends CI_Controller {
         $email=$this->input->post('email');
         $password=$this->input->post('password');
 
-        $result=$this->UserModel->chekUserExist($email,$password);
+        $result=$this->UserModel->chekUserExist($email);
 
         if ($result==False) {
 
@@ -85,13 +93,7 @@ class AuthController extends CI_Controller {
 
                 $data['info'] = $this->UserModel->showUserData($userID);
 
-				if ($userID==1 || $userID==2 ){
-					$this->load->view('adminHomePage.php',$data);
-				} else {
-                    $this->session->set_userdata('userID', $userID);				
-				
-				    $this->load->view('userHomePage.php',$data);
-			    }
+                $this->load->view('homePage.php',$data);
             }
         }
 
