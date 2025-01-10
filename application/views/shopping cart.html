@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style_shopcart.css">
+    <link rel="shortcut icon" href="pic/favicon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <title>Shopping Cart</title>
+    <style>
+        @font-face {
+            font-family: 'BNazanin';
+            src: url('fonts/BNazanin.ttf') format('ttf'),
+                 url('fonts/BNazanin.woff') format('woff');
+            font-family: 'BKamran';
+            src: url('fonts/BKamran.ttf') format('ttf'),
+                 url('fonts/BNazanin.woff') format('woff');
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="snow"></div> 
+        <div class="container">
+           <a style="color: rgb(255, 255, 255); " href="mainpage.html"> <h1 class="logo">Scarf Gallery</h1></a>
+           <h3>فاطمه غفرانی و کیمیا باقری</h3>
+            <nav class="nav">
+                <a href="register.html">عضویت</a>
+                <a href="login.html">ورود</a>
+                <a href="shopping cart.html">سبد خرید</a>
+                <a href="#">تخفیف شگفت‌انگیز</a>
+            </nav>
+        </div>
+    </header>
+    <div class="cart-container">
+        <h2>سبد خرید</h2>
+        
+        <div class="cart-items">
+            <div class="cart-item">
+                <div class="item-image">
+                    <img src="pic/shaal.jpg" alt="Product 1">
+                </div>
+                <div class="item-details">
+                    <p class="item-name">شال زمستانی</p>
+                    <p class="item-price">قیمت: 150,000 تومان</p>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <span class="item-quantity">1</span>
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <button class="remove-item">حذف</button>
+            </div>
+
+            <div class="cart-item">
+                <div class="item-image">
+                    <img src="pic/r.jpg" alt="Product 2">
+                </div>
+                <div class="item-details">
+                    <p class="item-name">روسری نخی</p>
+                    <p class="item-price">قیمت: 120,000 تومان</p>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <span class="item-quantity">1</span>
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <button class="remove-item">حذف</button>
+            </div>
+        </div>
+
+        <div class="cart-summary">
+            <p>جمع کل: <span class="total-price">270,000 تومان</span></p>
+            <button class="checkout-button">نهایی کردن خرید</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container border">
+            <p>ارتباط با ما</p>
+            <p>آدرس: تهران، خیابان 15 خرداد</p>
+            <p>تلفن: 09101234567</p>
+
+            <!-- Links -->
+            <div class="social-links">
+                <a href="https://twitter.com" target="_blank" class="social-icon twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://t.me" target="_blank" class="social-icon telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="tel:02112345678" class="social-icon phone">
+                    <i class="fas fa-phone-alt"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

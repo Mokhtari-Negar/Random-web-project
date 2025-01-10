@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/style_main.css">
     <link rel="shortcut icon" href="<?php echo base_url(); ?>pic/favicon.png" type="image/x-icon">
-    <link href="<?php echo base_url(); ?>css/fontStyle.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/fontStyle2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         @font-face {
@@ -23,59 +23,53 @@
    
 ?>
 
-</head>
 <title>Scarf Gallery » Admin Panel</title>
+</head>
 
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="snow">
+    <div class="snow"></div>
         <div class="container">
             <a style="color: rgb(255, 255, 255);" href="<?php echo base_url(); ?>"> 
-                <div class="logo">
-                    <h1>Scarf Gallery</h1>
-                </div>
+                <h1 class="logo">Scarf Gallery</h1>
             </a>
+            <h3><?php echo $row['FullName']." عزیز خوش آمدید!";?></h3>
             <nav class="nav">
-                <ul>
-                <li><a href="#">عضویت</a></li>
-                <li><a href="#">ورود</a></li>
-                <li><a href="#">سبد خرید</a></li>
-                <li><a href="#">درباره ما</a></li>
-                <li><a href="#">تماس با ما</a></li>
-            </ul>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/insertProduct">درج محصول</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/productList">ویرایش محصولات</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/showUserData">ویرایش اطلاعات</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/showCartItems">سبد خرید</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/about">درباره ما</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/contact">تماس با ما</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/logOut">خروج</a>
             </nav>
-        </div>
         </div> 
     </header>
     <?php
         } else {
     ?>
     
-</head>
 <title>Scarf Gallery » User Panel</title>
+</head>
 
 <body>
-    <!-- Header -->
     <<header class="header">
-        <div class="snow">
+        <div class="snow"></div>
         <div class="container">
             <a style="color: rgb(255, 255, 255);" href="<?php echo base_url(); ?>"> 
-                <div class="logo">
-                    <h1>Scarf Gallery</h1>
-                </div>
+                <h1 class="logo">Scarf Gallery</h1>
             </a>
-            <nav class="navbar">
-                <ul>
-                <li><a href="#">عضویت</a></li>
-                <li><a href="#">ورود</a></li>
-                <li><a href="#">سبد خرید</a></li>
-                <li><a href="#">درباره ما</a></li>
-                <li><a href="#">تماس با ما</a></li>
-            </ul>
+            <h3><?php echo $row['FullName']." عزیز خوش آمدید!";?></h3>
+            <nav class="nav">
+                <a href="<?php echo base_url(); ?>index.php/AuthController/showUserData">ویرایش اطلاعات</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/showUserComments">نظرات ثبت شده</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/showCartItems">سبد خرید</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/about">درباره ما</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/contact">تماس با ما</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/logOut">خروج</a>
             </nav>
         </div>
-        </div> 
     </header>
     <?php
         }
@@ -83,36 +77,31 @@
 } else {
     ?>
     
-</head>
 <title>Scarf Gallery</title>
+</head>
 
 <body>
-    <!-- Header -->
     <header class="header">
-        <div class="snow">
+        <div class="snow"></div> 
         <div class="container">
             <a style="color: rgb(255, 255, 255);" href="<?php echo base_url(); ?>"> 
-                <div class="logo">
-                    <h1>Scarf Gallery</h1>
-                </div>
+                    <h1 class="logo">Scarf Gallery</h1>
             </a>
-            <nav class="navbar">
-                <ul>
-                <li><a href="#">عضویت</a></li>
-                <li><a href="#">ورود</a></li>
-                <li><a href="#">سبد خرید</a></li>
-                <li><a href="#">درباره ما</a></li>
-                <li><a href="#">تماس با ما</a></li>
-            </ul>
+            <nav class="nav">
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/register">عضویت</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/login">ورود</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/login">سبد خرید</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/about">درباره ما</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/contact">تماس با ما</a>
             </nav>
         </div>
-        </div> 
     </header>
 
     <?php
 }
     ?>
-    
+   
+   <!-- end header -->
 
     <main class="main">
         <section class="winter-panel">

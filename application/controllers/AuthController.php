@@ -31,6 +31,10 @@ class AuthController extends CI_Controller {
                 $this->load->view('dev');
                 break;
 
+            case "insertProduct":
+                $this->load->view('insertProductPage');
+                break;
+
             default:
                 echo "Your favorite color is neither red, blue, nor green!";
             
