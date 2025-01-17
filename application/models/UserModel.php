@@ -18,6 +18,7 @@ class UserModel extends CI_Model {
 
     
     public function chekUserExist($email) {
+
         $query="select * from users where Email='".$email."'";
 
         $condition = "/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/";
@@ -37,6 +38,18 @@ class UserModel extends CI_Model {
             return false;
 	    }
     }
+
+
+    public function returnPassword($email) {
+
+        $condition="Email='".$email."'";
+		$query=$this->db->get_where('users',$condition);
+		
+		foreach($query->result() as $row){
+			return $row->Password;
+		}
+    }
+
 
     public function get_user_ID($email) {
         $condition="Email='".$email."'";

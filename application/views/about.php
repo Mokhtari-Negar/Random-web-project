@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/style_main.css">
     <link rel="shortcut icon" href="<?php echo base_url(); ?>pic/favicon.png" type="image/x-icon">
@@ -12,9 +12,11 @@
         @font-face {
             font-family: 'BNazanin';
             src: url('fonts/BNazanin.ttf') format('ttf'),
-                 url('fonts/BNazanin.ttf') format('ttf');
+                 url('fonts/BNazanin.woff') format('woff');
         }
     </style>
+
+
 
 <?php
     if (isset($info)) {
@@ -23,7 +25,7 @@
    
 ?>
 
-<title>Scarf Gallery » Admin Panel</title>
+<title>Scarf Gallery » Admin Panel » About</title>
 </head>
 
 <body>
@@ -100,46 +102,23 @@
     <?php
 }
     ?>
-   
-   <!-- end header -->
 
+
+    <!-- Main Content -->
     <main class="main">
+        <!-- Winter Panel -->
         <section class="winter-panel">
             <div class="container">
-                <div class="grid-2x2">
-                    <div class="grid-item">شال</div>
-                    <div class="grid-item">روسری</div>
-                    <div class="grid-item">مینی اسکارف</div>
-                    <div class="grid-item">تخفیف شگفت‌انگیز</div>
-                </div>
-            </div>
-        </section>
+                <h2 align="center">درباره ما</h2>
+                <p>طراحان سایت: کیمیا باقری 00130039907001 و فاطمه غفرانی 00130039907008</p>
+                <p>درس : برنامه نویسی مبتنی بر وب _ زمستان ۱۴۰۳</p>
+                <p>استاد: سرکار خانم نخعی</p>
+                <p>این سایت با موضوع فروشگاه آنلاین شال و روسری با عنوان اسکارف گالری توسط دو دانشجو از دانشگاه ملی مهارت واحد دکتر شریعتی شریعتی طراحی شده است.</p>
+                <p>مراحل تحویل پروژه به شرح زیر است : </p>
+                <p>۱.الگوریتم سایت</p>
+                <p>۲.بخش ظاهری</p>
+                <p>۳.ارسال نهایی</p>
 
-        <section class="recent-products">
-            <div class="container">
-                <h2>محصولات اخیر</h2>
-                <div class="product-grid">
-                <?php
-                $i = 1;
-                if ($i <= 3){
-                foreach($products as $key => $row) { ?>
-
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/showProduct/<?php echo $row['ProductID'];?>"><div class="product-card">
-                        <img src="<?php echo $row['ImageURL']; ?>" alt="<?php echo $row['Name']; ?>">
-                        <h3><?php echo $row['Name']; ?></h3>
-                        <p class="price"><?php echo $row['Price']." 000 T"; ?></p>
-                    </div></a>
-
-                <?php $i++; }
-                } ?>
-<!-- 
-                    <a href="<?php //echo base_url(); ?>index.php/AuthController/showProduct/<?php //echo $row['ProductID'];?>">
-                    <div class="product-card">
-                    <img src="<?php //echo $row['ImageURL']; ?>" alt="<?php //echo $row['Name']; ?>">
-                    <h3><?php // echo $row['Name']; ?></h3>
-                    <p class="price"><?php //echo $row['Price']." 000 T"; ?></p>
-                    </div></a> -->
-                </div>
             </div>
         </section>
     </main>
@@ -148,10 +127,10 @@
     <footer class="footer">
         <div class="container border">
             <p>ارتباط با ما</p>
-            <p>آدرس: تهران، خیابان 15 خرداد</p>
+            <p>آدرس:دانشکده ملی و مهارت شریعتی، دانشکده فنی، سایت 14، کلاس مبتنی بر وب با استاد نخعی</p>
             <p>تلفن: 09101234567</p>
     
-            <!-- Links -->
+            <!-- Social Media Links -->
             <div class="social-links">
                 <a href="https://twitter.com" target="_blank" class="social-icon twitter">
                     <i class="fab fa-twitter"></i>
@@ -171,4 +150,3 @@
     
 </body>
 </html>
-

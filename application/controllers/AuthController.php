@@ -52,22 +52,38 @@ class AuthController extends CI_Controller {
         $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
 
         if ($this->form_validation->run() == FALSE) {
+
             $this->load->view('register');
         } else {
-            // Validation passed, prepare data for database
-            $user_data = array(
-                'FullName' => $this->input->post('full_name'),
-                'Email' => $this->input->post('email'),
-                'PasswordHash' =>$this->input->post('password')
-            );
 
-            // Insert user into the database
+            $email = $this->input->post('email');
             $this->load->model('UserModel');
-            $result=$this->UserModel->insertUser($user_data);
-            if ($result) {
-                $this->load->view('login');
-            } else{
-                echo "nashod ke";
+            $checkResult=$this->UserModel->chekUserExist($email);
+
+            if ($checkResult == False) {
+
+                $user_data = array(
+                    'FullName' => $this->input->post('full_name'),
+                    'Email' => $email,
+                    'PasswordHash' =>$this->input->post('password')
+                );
+
+                // Insert user into the database
+                $this->load->model('UserModel');
+                $result=$this->UserModel->insertUser($user_data);
+                
+                if ($result) {
+
+                    $this->load->view('login');
+                } else{
+
+                    $this->session->set_flashdata('error','Something went wrong!');
+                    $this->load->view('register');
+                }
+            } else {
+
+                $this->session->set_flashdata('error','Email already exists!');
+                $this->load->view('register');
             }
         }
     } 
@@ -79,11 +95,12 @@ class AuthController extends CI_Controller {
         $email=$this->input->post('email');
         $password=$this->input->post('password');
 
-        $result=$this->UserModel->chekUserExist($email);
+        $emailResult=$this->UserModel->chekUserExist($email);
+        $passResult = $this->UserModel->returnPassword($email);
 
-        if ($result==False) {
+        if ($emailResult==False || $passResult != $password) {
 
-            $this->session->set_flashdata('error','Wrong pass or email!');
+            $this->session->set_flashdata('error','Wrong Email or Password!');
             $this->load->view('login');
         } else {
 
@@ -96,11 +113,11 @@ class AuthController extends CI_Controller {
 		        $this->session->set_userdata('userID', $userID);
 
                 $data['info'] = $this->UserModel->showUserData($userID);
+                $data['products']= $this->UserModel->productList();
 
                 $this->load->view('homePage.php',$data);
             }
         }
-
     }
 
     public function insertComment($productID) {
@@ -518,7 +535,6 @@ class AuthController extends CI_Controller {
             // If no referer found, redirect to a default page (like the homepage or login page)
             redirect('login');
         }
-
     }
 
 
