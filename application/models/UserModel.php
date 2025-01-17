@@ -129,9 +129,9 @@ class UserModel extends CI_Model {
         return $result;
     }
 
-    public function updateProduct($productID) {
+    public function updateProduct($productID,$productData) {
 
-        $sql="update products set Name='".$_POST['name']."' , Description='".$_POST['description']."', Price='".$_POST['price']."' , Stock='".$_POST['stock']."' , CategoryID='".$_POST['catID']."' , ImageURL='".$_POST['imageName']."' where ProductID=".$productID;
+        $sql="update products set Name='".$productData['Name']."' , Description='".$productData['Description']."', Price='".$productData['Price']."' , Stock='".$productData['Stock']."' , CategoryID='".$productData['CategoryID']."' , ImageURL='".$productData['ImageURL']."' where ProductID=".$productID;
         $query = $this->db->query($sql);
 
         if($query) {

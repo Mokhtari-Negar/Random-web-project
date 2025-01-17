@@ -279,13 +279,13 @@ class AuthController extends CI_Controller {
          
         $this->load->model('UserModel');		  
             
-        $data1 = $this->UserModel->showUserData($userID);
-        $data2 = $this->UserModel->showProduct($productID);
-        $data3 = $this->UserModel->showComments($productID);
+        $data['info'] = $this->UserModel->showUserData($userID);
+        $data['product'] = $this->UserModel->showProduct($productID);
+        $data['comments'] = $this->UserModel->showComments($productID);
 
-        $data['data1'] = json_encode($data1);
-        $data['data2'] = json_encode($data2);
-        $data['data3'] = json_encode($data3);
+        // $data['data1'] = json_encode($data1);
+        // $data['data2'] = json_encode($data2);
+        // $data['data3'] = json_encode($data3);
             
         $this->load->view('productPage',$data);		 
     }
@@ -375,28 +375,35 @@ class AuthController extends CI_Controller {
 
 		$this->load->model('UserModel');
 		 
-        $data1 = $this->UserModel->showUserData($adminID);
-        $data['data1'] = json_encode($data1);
+        $data['info'] = $this->UserModel->showUserData($adminID);
 
         //form validation
-        $this->load->library('form_validation');	
+    //     $this->load->library('form_validation');	
 		
-        $this->form_validation->set_rules('name', 'نام محصول', 'required');		
-        $this->form_validation->set_rules('price', 'قیمت', 'required');
-        $this->form_validation->set_rules('stock', 'تعداد', 'required');
-        $this->form_validation->set_rules('catID', 'دسته‌بندی', 'required');
-        $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
+    //     $this->form_validation->set_rules('name', 'نام محصول', 'required');		
+    //     $this->form_validation->set_rules('price', 'قیمت', 'required');
+    //     $this->form_validation->set_rules('stock', 'تعداد', 'required');
+    //     $this->form_validation->set_rules('catID', 'دسته‌بندی', 'required');
+    //     $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
          
-	   if ($this->form_validation->run() == FALSE){
+	//    if ($this->form_validation->run() == FALSE){
 
-           $data2 = $this->UserModel->showProduct($productID);
-           $data['data2'] = json_encode($data2);
+    //        $data['product'] = $this->UserModel->showProduct($productID);
 		   
-           $this->load->view('editProductPage', $data);
+    //        $this->load->view('editProductPage', $data);
 		
-        } else {
+    //     } else {
 
-            $result = $this->UserModel->updateProduct($productID);
+            $productData = array(
+                'Name' =>  $this->input->post('name'),
+                'Description' =>  $this->input->post('description'),
+                'Price' =>  $this->input->post('price'),
+                'Stock' =>  $this->input->post('stock'),
+                'CategoryID' =>  $this->input->post('catID'),
+                'ImageURL' => "../pic/". $this->input->post('imageName'),
+            );
+
+            $result = $this->UserModel->updateProduct($productID,$productData);
             
             if ($result==true) {
             
@@ -406,7 +413,7 @@ class AuthController extends CI_Controller {
                 $this->load->view('error_alert',$data);
             }	
             
-	    }
+	    // }
 		 
 	}
     

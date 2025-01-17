@@ -31,6 +31,14 @@
             margin-bottom: 5px;
             display: block;
         }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
         input[type="text"], input[type="number"], select {
             width: 100%;
             padding: 10px;
@@ -38,6 +46,8 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
+            direction: rtl;   
+            text-align: right;
         }
         input[type="number"]#productPrice::-webkit-inner-spin-button,
         input[type="number"]#productPrice::-webkit-outer-spin-button {
@@ -66,42 +76,46 @@
 
 <?php
     if (isset($info)) {
-    // foreach ($info as $userKey => $userRow) {  
-        if (isset($product)) { 
-            foreach($product as $productKey => $productRow) {
+        if (isset($product)) {
+            foreach ($product as $key => $row) {  
+       
 ?>
 
-<title>Scarf Gallery » Insert Product</title>
+<title>Scarf Gallery » Edit Product</title>
 </head>
 <body>
     <div class="container">
         <h1>درج محصول</h1>
-        <form>
+        <form action="<?php echo base_url() ?>index.php/AuthController/insertProduct/<?php echo $row['ProductID']; ?>" method="POST">
             <div class="mb-3">
                 <label for="productName">نام محصول</label>
-                <input type="text" id="productName" name="name" placeholder="نام محصول را وارد کنید">
+                <input type="text" id="productName" name="name" value="<?php echo $row['Name'];?>" placeholder="نام محصول را وارد کنید">
             </div>
             <div class="mb-3">
-                <label for="productPrice">قیمت محصول (ریال)</label>
-                <input type="number" id="productPrice" name="price" inputmode="numeric" placeholder="قیمت را وارد کنید">
+                <label for="productPrice">قیمت محصول (T)</label>
+                <input type="number" id="productPrice" name="price" inputmode="numeric" value="<?php echo $row['Price'];?>" placeholder="قیمت را وارد کنید">
             </div>
             <div class="mb-3">
                 <label for="productStock">موجودی انبار</label>
-                <input type="number" id="productStock" name="stock" min="0" step="1" placeholder="موجودی را وارد کنید">
+                <input type="number" id="productStock" name="stock" min="0" step="1" value="<?php echo $row['Stock'];?>" placeholder="موجودی را وارد کنید">
             </div>
             <div class="mb-3">
                 <label for="productCategory">دسته‌بندی محصول</label>
-                <select id="productCategory" name="categoryID">
-                    <option value="1">دسته‌بندی 1</option>
-                    <option value="2">دسته‌بندی 2</option>
-                    <option value="3">دسته‌بندی 3</option>
+                <select id="productCategory" name="catID">
+                    <option value="1" <?php echo ($row['CategoryID'] == 1) ? 'selected' : ''; ?>>شال</option>
+                    <option value="2" <?php echo ($row['CategoryID'] == 2) ? 'selected' : ''; ?>>روسری</option>
+                    <option value="3" <?php echo ($row['CategoryID'] == 3) ? 'selected' : ''; ?>>مینی‌اسکارف</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="productImage">آدرس تصویر محصول</label>
-                <input type="text" id="productImage" name="imageURL" placeholder="آدرس تصویر را وارد کنید">
+                <label for="description">توضیحات</label>
+                <textarea id="description" name="description" rows="3" placeholder="توضیحات را وارد کنید"><?php echo $row['Description'];?></textarea>
             </div>
-            <?php } } }?>
+            <div class="mb-3">
+                <label for="productImage">آدرس تصویر محصول</label>
+                <input type="text" id="productImage" name="imageName" value="<?php echo $row['ImageURL'];?>" placeholder="نام تصویر را وارد کنید">
+            </div>
+            <?php } } } ?>
             <div class="btn-group">
                 <button type="submit">ثبت</button>
                 <button type="button" onclick="history.back();">انصراف</button>
