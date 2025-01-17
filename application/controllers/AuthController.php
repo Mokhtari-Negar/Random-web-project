@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AuthController extends CI_Controller {
     public function index() {
-        		 
+
         $this->load->library('session');
 
         if ($this->session->has_userdata('userID')) {
@@ -73,10 +73,10 @@ class AuthController extends CI_Controller {
         $this->load->library('form_validation');
 
         // Form validation rules
-        $this->form_validation->set_rules('full_name', 'Full Name', 'required');
+        $this->form_validation->set_rules('fullName', 'Full Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.Email]');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
-        $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
+        $this->form_validation->set_rules('confirmPassword', 'Confirm Password', 'required|matches[password]');
 
         if ($this->form_validation->run() == FALSE) {
 
@@ -90,9 +90,9 @@ class AuthController extends CI_Controller {
             if ($checkResult == False) {
 
                 $user_data = array(
-                    'FullName' => $this->input->post('full_name'),
+                    'FullName' => $this->input->post('fullName'),
                     'Email' => $email,
-                    'PasswordHash' =>$this->input->post('password')
+                    'Password' =>$this->input->post('password')
                 );
 
                 // Insert user into the database
@@ -213,7 +213,6 @@ class AuthController extends CI_Controller {
 
     }
     
-	// Edit User Information Task
 	public function showUserData() {	
 		
 	    $this->load->library('session');
@@ -232,28 +231,33 @@ class AuthController extends CI_Controller {
 
         $this->load->model('UserModel');
 
-		$this->load->library('form_validation');
+		// $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('fname', 'نام', 'required|min_length[2]|regex_match[/^[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+(\s[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+)*$/]');
-		$this->form_validation->set_rules('lname', 'نام خانوادگی', 'required|min_length[3]|regex_match[/^[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+(\s[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+)*$/]');
-		$this->form_validation->set_rules('email', 'ایمیل', 'valid_email|callback_check_unique_email');
-	    $this->form_validation->set_rules('pass', 'رمز عبور', 'required|min_length[8]|callback_password_check');
-		$this->form_validation->set_rules('user', 'نام کاربری', 'required|callback_check_unique_username');
+        // $this->form_validation->set_rules('fullName', 'نام کامل', 'required|min_length[2]|regex_match[/^[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+(\s[آ-ا-ب-پ-ت-ث-ج-چ-ح-خ-د-ذ-ر-ز-ژ-س-ش-ص-ض-ط-ظ-ع-غ-ف-ق-ه-ک-گ-ل-ن-م-و-ه-ی]+)*$/]');
+		// $this->form_validation->set_rules('address', 'آدرس', 'min_length[3]');
+	    // $this->form_validation->set_rules('password', 'رمز عبور', 'required|min_length[8]');
+		// $this->form_validation->set_rules('phoneNumber', 'تلفن همراه', 'min_length[11]');
 	
-		$this->form_validation->set_message('regex_match', '%s باید فقط شامل حروف الفبا باشد.');
-		$this->form_validation->set_message('min_length', 'حداقل طول %s %s کاراکتر است.');
-		$this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
-		$this->form_validation->set_message('valid_email', '%s باید طبق فرمت درستی وارد شود.');
-		$this->form_validation->set_message('check_unique_email', 'ایمیل وارد شده تکراری است.');
-		$this->form_validation->set_message('check_unique_username', 'نام کاربری وارد شده تکراری است.');
+		// $this->form_validation->set_message('regex_match', '%s باید فقط شامل حروف الفبا باشد.');
+		// $this->form_validation->set_message('min_length', 'حداقل طول %s %s کاراکتر است.');
+		// $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');		
 	
-	    if ($this->form_validation->run() == FALSE) {
+	    // if ($this->form_validation->run() == FALSE) {
 
-            $data['info'] = $this->UserModel->showUserData($userID);
-            $this->load->view('editUserData', $data);
-        } else {
+        //     $data['info'] = $this->UserModel->showUserData($userID);
+        //     var_dump($data);
 
-            $result=$this->UserModel->updateData($userID);
+        //     $this->load->view('editUserData', $data);
+        // } else {
+
+            $userData = array(
+                'FullName' => $this->input->post('fullName'),
+                'PhoneNumber' => $this->input->post('phoneNumber'),
+                'Password' =>$this->input->post('password'),
+                'Address' =>$this->input->post('address')
+            );
+
+            $result=$this->UserModel->updateData($userID,$userData);
             $data['info'] = $this->UserModel->showUserData($userID);
 
             if($result) {
@@ -264,8 +268,7 @@ class AuthController extends CI_Controller {
                 $this->load->view('error_alert',$data);
     		}
 
-        }
-
+        // }
 	 
     }
 

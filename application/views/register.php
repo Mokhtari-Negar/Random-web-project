@@ -20,7 +20,7 @@
     <form action="<?php echo base_url() ?>index.php/AuthController/register" method="POST">
     <h1 align="center">Register</h1>
         <label for="full_name">Full Name:</label>
-        <input type="text" name="full_name" id="full_name" required><br>
+        <input type="text" name="fullName" id="fullName" required><br>
 
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required><br>
@@ -28,8 +28,8 @@
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required><br>
 
-        <label for="confirm_password">Confirm Password:</label>
-        <input type="password" name="confirm_password" id="confirm_password" required><br>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" required><br>
 
         <button type="submit">Register</button><br>
 
