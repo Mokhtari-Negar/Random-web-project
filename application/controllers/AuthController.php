@@ -2,12 +2,39 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AuthController extends CI_Controller {
-    public function index()
-    {		 
-        $this->load->view('homePage');
+    public function index() {
+        		 
+        $this->load->library('session');
+
+        if ($this->session->has_userdata('userID')) {
+
+            $userID = $this->session->userdata('userID');
+            
+            $this->load->model('UserModel');
+            $data['info'] = $this->UserModel->showUserData($userID); 
+        }
+
+        $this->load->model('UserModel');
+        $data['products']= $this->UserModel->productList();
+
+        $this->load->view('homePage',$data);
     }
 
     public function viewRouteControll($viewName){
+
+        $this->load->library('session');
+
+        if ($this->session->has_userdata('userID')) {
+
+            $userID = $this->session->userdata('userID');
+            
+            $this->load->model('UserModel');
+            $data['info'] = $this->UserModel->showUserData($userID);
+            
+        }
+
+        $data;
+        // $this->load->model('UserModel');
 
         switch ($viewName) {
             
@@ -20,15 +47,15 @@ class AuthController extends CI_Controller {
                 break;
             
             case "about":
-                $this->load->view('about');
+                $this->load->view('about',$data);
                 break;
 
             case "contact":
-                $this->load->view('contact');
+                $this->load->view('contact',$data);
                 break;
 
             case "dev":
-                $this->load->view('dev');
+                $this->load->view('dev',$data);
                 break;
 
             case "insertProduct":
