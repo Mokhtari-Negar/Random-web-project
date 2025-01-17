@@ -23,6 +23,7 @@ class AuthController extends CI_Controller {
     public function viewRouteControll($viewName){
 
         $this->load->library('session');
+        $data = array();
 
         if ($this->session->has_userdata('userID')) {
 
@@ -33,7 +34,6 @@ class AuthController extends CI_Controller {
             
         }
 
-        $data;
         // $this->load->model('UserModel');
 
         switch ($viewName) {
@@ -59,7 +59,7 @@ class AuthController extends CI_Controller {
                 break;
 
             case "insertProduct":
-                $this->load->view('insertProductPage');
+                $this->load->view('insertProductPage',$data);
                 break;
 
             default:
@@ -333,18 +333,18 @@ class AuthController extends CI_Controller {
         $data['info'] = $this->UserModel->showUserData($adminID);
     
         // form validation
-        $this->load->library('form_validation');	
+        // $this->load->library('form_validation');	
             
-        $this->form_validation->set_rules('name', 'نام محصول', 'required');		
-        $this->form_validation->set_rules('price', 'قیمت', 'required');
-        $this->form_validation->set_rules('stock', 'تعداد', 'required');
-        $this->form_validation->set_rules('catID', 'دسته‌بندی', 'required');
-        $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
+        // $this->form_validation->set_rules('name', 'نام محصول', 'required');		
+        // $this->form_validation->set_rules('price', 'قیمت', 'required');
+        // $this->form_validation->set_rules('stock', 'تعداد', 'required');
+        // $this->form_validation->set_rules('catID', 'دسته‌بندی', 'required');
+        // $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
         
-        if ($this->form_validation->run() == FALSE) {
+        // if ($this->form_validation->run() == FALSE) {
 
-            $this->load->view('insertProductPage',$data);
-        } else {
+        //     $this->load->view('insertProductPage',$data);
+        // } else {
 
             $productData = array(
                 'Name' =>  $this->input->post('name'),
@@ -364,7 +364,7 @@ class AuthController extends CI_Controller {
             else{
                 $this->load->view('error_alert',$data);
             }
-        }		 
+        // }		 
             
     }	
 
