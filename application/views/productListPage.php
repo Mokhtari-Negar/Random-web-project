@@ -114,11 +114,11 @@
                         foreach($products as $key => $row) {
                 ?>
                 <div class="product-item">
-                    <div class="product-info">
+                    <a href = "<?php echo base_url(); ?>index.php/AuthController/showProduct/<?php echo $row['ProductID'];?>" ><div class="product-info">
                         <p class="product-name"><?php echo $row['Name'] ; ?></p>
                         <p class="product-description"><?php echo $row['Description']; ?></p>
                         <p class="product-stock">تعداد موجود: <?php echo $row['Stock']; ?></p>
-                    </div>
+                    </div></a>
                     <?php if($userID == 1 || $userID == 2) { ?>
                     <div class="product-actions">
                         <a href = "<?php echo base_url(); ?>index.php/AuthController/loadEditProduct/<?php echo $row['ProductID']; ?>" ><button class="edit">ویرایش</button></a>
