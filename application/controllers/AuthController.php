@@ -207,14 +207,29 @@ class AuthController extends CI_Controller {
 		
 		$this->load->model('UserModel');
 
-        $data1 = $this->UserModel->showUserData($userID);
-        $data2 = $this->UserModel->showUserComments($userID);
+        $data['info'] = $this->UserModel->showUserData($userID);
+        $data['comments'] = $this->UserModel->showUserComments($userID);
 
-        $data['data1'] = json_encode($data1);
-        $data['data2'] = json_encode($data2);
+        $this->load->view('commentsPage',$data);
+    }
 
-        $this->load->view('commentPage',$data);
+    public function deleteComment($commentID) {
 
+        $this->load->library('session');
+        $userID = $this->session->userdata('userID');
+		
+		$this->load->model('UserModel');
+
+        $data['info'] = $this->UserModel->showUserData($userID);
+        $result = $this->UserModel->deleteComment($commentID);
+
+        if ($result==true) {
+                
+            $this->load->view('success_alert',$data);
+        } else {
+
+            $this->load->view('error_alert',$data);
+        }
     }
     
 	public function showUserData() {	
@@ -306,7 +321,7 @@ class AuthController extends CI_Controller {
             $this->load->model('UserModel');
             $data['info'] = $this->UserModel->showUserData($userID);   
         }
-        
+
         $data['products'] = $this->UserModel->productList();
             
         $this->load->view('productListPage',$data);

@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/style_productlist.css">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>لیست محصولات</title>
     <style>
         @font-face {
             font-family: 'BNazanin';
@@ -26,7 +25,7 @@
    
 ?>
 
-<title>Scarf Gallery » Admin Panel</title>
+<title>Scarf Gallery » Admin Panel » Products List</title>
 </head>
 
 <body>
@@ -53,7 +52,7 @@
         } else {
     ?>
     
-<title>Scarf Gallery » User Panel</title>
+<title>Scarf Gallery » User Panel » Products List</title>
 </head>
 
 <body>
@@ -80,7 +79,7 @@
 } else {
     ?>
     
-<title>Scarf Gallery</title>
+<title>Scarf Gallery » Products List</title>
 </head>
 
 <body>

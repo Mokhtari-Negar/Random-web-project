@@ -97,9 +97,23 @@ class UserModel extends CI_Model {
     // show comments of a user
     public function showUserComments($userID) {
 
-        $query = "SELECT * from comments WHERE UserID = ".$userID;
+        $query = "SELECT * from comments INNER JOIN products ON comments.ProductID = products.ProductID WHERE UserID = ".$userID;
         $sql = $this->db->query($query);
         return $sql->result_array();
+    }
+
+    public function deleteComment($commentID) {
+
+        $sql="delete from comments where CommentID=".$commentID;
+        $query= $this->db->query($sql);
+        
+        if ($query) {
+
+			return true;
+		} else {
+
+			return false;
+		}
     }
 
     public function showProduct ($productID) {

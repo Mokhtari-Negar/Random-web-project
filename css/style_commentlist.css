@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    background: #e8f8fc;
+    color: #333;
+    font-family: 'BNazanin', Arial, sans-serif;
+}
+
+.container-comment {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 .container-comment{
+    text-align: center;
+    color: #4f899c;
+}
+
+.product-review {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-review:last-child {
+    border-bottom: none;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-info h3 {
+    margin: 0 0 5px;
+    font-size: 1.2rem;
+}
+
+.product-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions button {
+    background-color: #4f899c;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.actions button:hover {
+    background-color: #2f6077;
+}
+
+.actions button.delete {
+    background-color: #e74c3c;
+}
+
+.actions button.delete:hover {
+    background-color: #c0392b;
+}
