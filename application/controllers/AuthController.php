@@ -62,6 +62,10 @@ class AuthController extends CI_Controller {
                 $this->load->view('insertProductPage',$data);
                 break;
 
+            case "editProduct":
+                $this->load->view('insertProductPage',$data);
+                break;
+
             default:
                 echo "Your favorite color is neither red, blue, nor green!";
             
@@ -293,15 +297,17 @@ class AuthController extends CI_Controller {
     public function productList () {
         
         $this->load->library('session');
-        $userID= $this->session->userdata('userID');
-         
-        $this->load->model('UserModel');		  
-            
-        $data1 = $this->UserModel->showUserData($userID);
-        $data2 = $this->UserModel->productList($productID);
+        $data = array();
 
-        $data['data1'] = json_encode($data1);
-        $data['data2'] = json_encode($data2);
+        if ($this->session->has_userdata('userID')) {
+
+            $userID = $this->session->userdata('userID');
+            
+            $this->load->model('UserModel');
+            $data['info'] = $this->UserModel->showUserData($userID);   
+        }
+        
+        $data['products'] = $this->UserModel->productList();
             
         $this->load->view('productListPage',$data);
     }
@@ -313,11 +319,8 @@ class AuthController extends CI_Controller {
          
         $this->load->model('UserModel');		  
             
-        $data1 = $this->UserModel->showUserData($userID);
-        $data2 = $this->UserModel->productCategorizedList($categoryID);
-
-        $data['data1'] = json_encode($data1);
-        $data['data2'] = json_encode($data2);
+        $data['info'] = $this->UserModel->showUserData($userID);
+        $data['product'] = $this->UserModel->productCategorizedList($categoryID);
             
         $this->load->view('productListPage',$data);
     }
@@ -366,7 +369,20 @@ class AuthController extends CI_Controller {
             }
         // }		 
             
-    }	
+    }
+    
+    public function loadEditProduct($productID) {
+
+        $this->load->library('session');
+        $userID= $this->session->userdata('userID');
+         
+        $this->load->model('UserModel');		  
+            
+        $data['info'] = $this->UserModel->showUserData($userID);
+        $data['product'] = $this->UserModel->showProduct($productID);
+        
+        $this->load->view('editProductPage',$data);
+    }
 
     public function editProduct($productID) {
 		 

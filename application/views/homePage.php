@@ -121,24 +121,27 @@
                 <div class="product-grid">
                 <?php
                 $i = 1;
-                if ($i <= 3){
-                foreach($products as $key => $row) { ?>
+                foreach($products as $key => $row) {
 
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/showProduct/<?php echo $row['ProductID'];?>"><div class="product-card">
-                        <img src="<?php echo $row['ImageURL']; ?>" alt="<?php echo $row['Name']; ?>">
+                    if ($i <= 3){ ?>
+
+                    <a href="<?php echo base_url(); ?>index.php/AuthController/showProduct/<?php echo $row['ProductID'];?>">
+                        <div class="product-card">
+                        <img src="url('<?php echo $row['ImageURL']; ?>');" alt="<?php echo $row['Name']; ?>">
                         <h3><?php echo $row['Name']; ?></h3>
                         <p class="price"><?php echo $row['Price']." 000 T"; ?></p>
                     </div></a>
 
-                <?php $i++; }
+                <?php $i++; 
+                    } else {
+                        
+                        break;
+                    }
                 } ?>
-<!-- 
-                    <a href="<?php //echo base_url(); ?>index.php/AuthController/showProduct/<?php //echo $row['ProductID'];?>">
-                    <div class="product-card">
-                    <img src="<?php //echo $row['ImageURL']; ?>" alt="<?php //echo $row['Name']; ?>">
-                    <h3><?php // echo $row['Name']; ?></h3>
-                    <p class="price"><?php //echo $row['Price']." 000 T"; ?></p>
-                    </div></a> -->
+
+                </div>
+                <div class="view-more-container">
+                    <a href="<?php echo base_url(); ?>index.php/AuthController/productList" class="view-more-btn">بیشتر</a>
                 </div>
             </div>
         </section>

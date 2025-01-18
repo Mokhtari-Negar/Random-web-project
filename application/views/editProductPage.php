@@ -86,7 +86,7 @@
 <body>
     <div class="container">
         <h1>درج محصول</h1>
-        <form action="<?php echo base_url() ?>index.php/AuthController/insertProduct/<?php echo $row['ProductID']; ?>" method="POST">
+        <form action="<?php echo base_url() ?>index.php/AuthController/editProduct/<?php echo $row['ProductID']; ?>" method="POST">
             <div class="mb-3">
                 <label for="productName">نام محصول</label>
                 <input type="text" id="productName" name="name" value="<?php echo $row['Name'];?>" placeholder="نام محصول را وارد کنید">
