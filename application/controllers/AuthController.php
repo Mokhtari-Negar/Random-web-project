@@ -62,9 +62,6 @@ class AuthController extends CI_Controller {
                 $this->load->view('insertProductPage',$data);
                 break;
 
-            case "editProduct":
-                $this->load->view('insertProductPage',$data);
-                break;
 
             default:
                 echo "Your favorite color is neither red, blue, nor green!";
@@ -157,13 +154,13 @@ class AuthController extends CI_Controller {
         $userID = $this->session->userdata('userID');		
         $this->load->model('UserModel');
         
-        $this->load->library('form_validation');	
+        // $this->load->library('form_validation');	
         
-        $this->form_validation->set_rules('name', ' نام ', 'required');		
-        $this->form_validation->set_rules('comment', ' متن دیدگاه ', 'required');
-        $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
+        // $this->form_validation->set_rules('name', ' نام ', 'required');		
+        // $this->form_validation->set_rules('comment', ' متن دیدگاه ', 'required');
+        // $this->form_validation->set_message('required', '%s نمیتواند خالی باشد.');
         
-        if ($this->form_validation->run() == TRUE) {
+        // if ($this->form_validation->run() == TRUE) {
 
             $insertData = array(
                 'UserName' => $this->input->post('userName'),
@@ -174,26 +171,15 @@ class AuthController extends CI_Controller {
 
             $result=$this->UserModel->insertComment($insertData);
 
-            if(!$result){
-                // if($userID==1|$userID==2|$userID==3|$userID==4|$userID==5|$userID==6|$userID==7){
-                // $this->load->view('admin_inside_poem', $data);
-                
-                // }else{}
-
+            if(!$result) {
                 $this->session->set_flashdata('error','Something went wrong!');
             }    
                
-        }
+        // }
 
-        $data1 = $this->UserModel->showUserData($userID);
-        $data2 = $this->UserModel->showAPoem($productID);
-        $data3 = $this->UserModel->poetPic($productID);
-        $data4 = $this->UserModel->showComments($productID);
-
-        $data['data1'] = json_encode($data1);
-        $data['data2'] = json_encode($data2);
-        $data['data3'] = json_encode($data3);
-        $data['data4'] = json_encode($data4);
+        $data['info'] = $this->UserModel->showUserData($userID); 
+        $data['products'] = $this->UserModel->showProduct($productID);
+        $data['comments'] = $this->UserModel->showComments($productID);
 
         $this->load->view('productPage',$data);	 		   
 
@@ -294,25 +280,25 @@ class AuthController extends CI_Controller {
     public function showProduct ($productID) {
 
         $this->load->library('session');
-        $userID= $this->session->userdata('userID');
-         
-        $this->load->model('UserModel');		  
+        if ($this->session->has_userdata('userID')) {
+
+            $userID = $this->session->userdata('userID');
             
-        $data['info'] = $this->UserModel->showUserData($userID);
-        $data['product'] = $this->UserModel->showProduct($productID);
+            $this->load->model('UserModel');
+            $data['info'] = $this->UserModel->showUserData($userID); 
+        }
+
+        $this->load->model('UserModel');		  
+
+        $data['products'] = $this->UserModel->showProduct($productID);
         $data['comments'] = $this->UserModel->showComments($productID);
 
-        // $data['data1'] = json_encode($data1);
-        // $data['data2'] = json_encode($data2);
-        // $data['data3'] = json_encode($data3);
-            
         $this->load->view('productPage',$data);		 
     }
 
     public function productList () {
         
         $this->load->library('session');
-        $data = array();
 
         if ($this->session->has_userdata('userID')) {
 
@@ -322,6 +308,7 @@ class AuthController extends CI_Controller {
             $data['info'] = $this->UserModel->showUserData($userID);   
         }
 
+        $this->load->model('UserModel');
         $data['products'] = $this->UserModel->productList();
             
         $this->load->view('productListPage',$data);
@@ -330,13 +317,18 @@ class AuthController extends CI_Controller {
     public function productCategorizedList ($categoryID) {
         
         $this->load->library('session');
-        $userID= $this->session->userdata('userID');
-         
-        $this->load->model('UserModel');		  
-            
-        $data['info'] = $this->UserModel->showUserData($userID);
-        $data['product'] = $this->UserModel->productCategorizedList($categoryID);
-            
+
+        if ($this->session->has_userdata('userID')) {
+
+            $userID = $this->session->userdata('userID');
+
+            $this->load->model('UserModel');
+            $data['info'] = $this->UserModel->showUserData($userID);   
+        }
+
+        $this->load->model('UserModel');
+        $data['products'] = $this->UserModel->productCategorizedList($categoryID);
+
         $this->load->view('productListPage',$data);
     }
 
@@ -547,13 +539,10 @@ class AuthController extends CI_Controller {
          
         $this->load->model('UserModel');		  
             
-        $data1 = $this->UserModel->showUserData($userID);
-        $data2 = $this->UserModel->showCartList($userID);
-
-        $data['data1'] = json_encode($data1);
-        $data['data2'] = json_encode($data2);
+        $data['info'] = $this->UserModel->showUserData($userID);
+        $data['products'] = $this->UserModel->showCartList($userID);
             
-        $this->load->view('productListPage',$data);
+        $this->load->view('cartListPage',$data);
     }
 
     public function purchase () {

@@ -107,10 +107,10 @@
         <section class="winter-panel">
             <div class="container">
                 <div class="grid-2x2">
-                    <div class="grid-item">شال</div>
-                    <div class="grid-item">روسری</div>
-                    <div class="grid-item">مینی اسکارف</div>
-                    <div class="grid-item">تخفیف شگفت‌انگیز</div>
+                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/1"><div class="grid-item">شال</div></a>
+                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/2"><div class="grid-item">روسری</div></a>
+                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/3"><div class="grid-item">مینی اسکارف</div></a>
+                    <a href="<?php echo base_url(); ?>index.php/AuthController/"><div class="grid-item">خودت طراحی کن!</div></a>
                 </div>
             </div>
         </section>
@@ -129,7 +129,7 @@
                         <div class="product-card">
                         <img src="url('<?php echo $row['ImageURL']; ?>');" alt="<?php echo $row['Name']; ?>">
                         <h3><?php echo $row['Name']; ?></h3>
-                        <p class="price"><?php echo $row['Price']." 000 T"; ?></p>
+                        <!-- <p class="price"><?php //echo $row['Price']." 000 T"; ?></p> -->
                     </div></a>
 
                 <?php $i++; 

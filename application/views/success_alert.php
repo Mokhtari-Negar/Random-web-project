@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/style_main.css">
     <link rel="shortcut icon" href="<?php echo base_url(); ?>pic/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>css/style_productlist.css">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
         @font-face {
             font-family: 'BNazanin';
@@ -17,15 +17,13 @@
     </style>
 
 <?php
-    $userID = -1;
     if (isset($info)) {
     foreach ($info as $key => $row) {
         if ($row['UserID']==1 || $row['UserID']==2){
-            $userID = $row['UserID'];
    
 ?>
 
-<title>Scarf Gallery » Admin Panel » Products List</title>
+<title>Scarf Gallery » Admin Panel</title>
 </head>
 
 <body>
@@ -52,7 +50,7 @@
         } else {
     ?>
     
-<title>Scarf Gallery » User Panel » Products List</title>
+<title>Scarf Gallery » User Panel</title>
 </head>
 
 <body>
@@ -79,7 +77,7 @@
 } else {
     ?>
     
-<title>Scarf Gallery » Products List</title>
+<title>Scarf Gallery</title>
 </head>
 
 <body>
@@ -100,39 +98,46 @@
     </header>
 
     <?php
-        }
+}
     ?>
+   
+    
+	<main>
+		<div >
+			<div >
+				<div class="alert alert-success">
+					<strong style="font-family: iybd">&nbsp;&nbsp;عملیات با موفقیت انجام شد!</strong>
 
+				</div>				
+			</div>
+		</div>		
+    </main>	
 
-    <main class="main">
-        <section class="winter-panel">
-            <div></br></br></div>
-            <div class="product-list">
-                <h1 align = "center">لیست  محصولات</h1>
-                <?php
-                    if (isset($products)) {
-                        foreach($products as $key => $row) {
-                ?>
-                <div class="product-item">
-                    <div class="product-info">
-                        <p class="product-name"><?php echo $row['Name'] ; ?></p>
-                        <p class="product-description"><?php echo $row['Description']; ?></p>
-                        <p class="product-stock">تعداد موجود: <?php echo $row['Stock']; ?></p>
-                    </div>
-                    <?php if($userID == 1 || $userID == 2) { ?>
-                    <div class="product-actions">
-                        <a href = "<?php echo base_url(); ?>index.php/AuthController/loadEditProduct/<?php echo $row['ProductID']; ?>" ><button class="edit">ویرایش</button></a>
-                        <a href = "<?php echo base_url(); ?>index.php/AuthController/deleteProduct/<?php echo $row['ProductID']; ?>" ><button class="delete">حذف</button></a>
-                    </div>
-                    <?php } ?>
-                </div>
-                <?php 
-                        }
-                    } 
-                ?>
-                </div>
+       <!-- Footer -->
+    <footer class="footer">
+        <div class="container border">
+            <p>ارتباط با ما</p>
+            <p>آدرس: تهران، خیابان 15 خرداد</p>
+            <p>تلفن: 09101234567</p>
+    
+            <!-- Links -->
+            <div class="social-links">
+                <a href="https://twitter.com" target="_blank" class="social-icon twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://t.me" target="_blank" class="social-icon telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="tel:02112345678" class="social-icon phone">
+                    <i class="fas fa-phone-alt"></i>
+                </a>
             </div>
-        </section>
-    </main>
+        </div>
+    </footer>
+    
 </body>
 </html>
+

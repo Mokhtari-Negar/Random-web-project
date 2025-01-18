@@ -17,15 +17,12 @@
     </style>
 
 <?php
-    $userID = -1;
     if (isset($info)) {
     foreach ($info as $key => $row) {
-        if ($row['UserID']==1 || $row['UserID']==2){
-            $userID = $row['UserID'];
-   
+        if ($row['UserID']==1 || $row['UserID']==2){   
 ?>
 
-<title>Scarf Gallery » Admin Panel » Products List</title>
+<title>Scarf Gallery » Admin Panel » Cart</title>
 </head>
 
 <body>
@@ -52,7 +49,7 @@
         } else {
     ?>
     
-<title>Scarf Gallery » User Panel » Products List</title>
+<title>Scarf Gallery » User Panel » Cart</title>
 </head>
 
 <body>
@@ -79,7 +76,7 @@
 } else {
     ?>
     
-<title>Scarf Gallery » Products List</title>
+<title>Scarf Gallery » Cart</title>
 </head>
 
 <body>
@@ -119,12 +116,10 @@
                         <p class="product-description"><?php echo $row['Description']; ?></p>
                         <p class="product-stock">تعداد موجود: <?php echo $row['Stock']; ?></p>
                     </div>
-                    <?php if($userID == 1 || $userID == 2) { ?>
                     <div class="product-actions">
                         <a href = "<?php echo base_url(); ?>index.php/AuthController/loadEditProduct/<?php echo $row['ProductID']; ?>" ><button class="edit">ویرایش</button></a>
                         <a href = "<?php echo base_url(); ?>index.php/AuthController/deleteProduct/<?php echo $row['ProductID']; ?>" ><button class="delete">حذف</button></a>
                     </div>
-                    <?php } ?>
                 </div>
                 <?php 
                         }
