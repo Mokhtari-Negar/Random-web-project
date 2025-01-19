@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 19, 2025 at 11:03 AM
+-- Generation Time: Jan 19, 2025 at 02:56 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -112,17 +112,14 @@ CREATE TABLE IF NOT EXISTS `orderdetails` (
   PRIMARY KEY (`OrderDetailID`),
   KEY `OrderID` (`OrderID`),
   KEY `ProductID` (`ProductID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orderdetails`
 --
 
 INSERT INTO `orderdetails` (`OrderDetailID`, `OrderID`, `ProductID`, `Quantity`, `Price`, `TotalAmount`) VALUES
-(1, 2, 2, 2, 150.00, 300.00),
-(3, 5, 3, 1, 150.00, 150.00),
-(4, 6, 2, 1, 130.00, 130.00),
-(5, 7, 1, 1, 150.00, 150.00);
+(18, 20, 3, 1, 150.00, 150.00);
 
 -- --------------------------------------------------------
 
@@ -134,11 +131,11 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `OrderID` int NOT NULL AUTO_INCREMENT,
   `UserID` int DEFAULT NULL,
-  `Status` enum('cart','Pending','Preparing','Shipped','Delivered','Cancelled') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'cart',
+  `Status` enum('Cart','Pending','Preparing','Shipped','Delivered','Cancelled') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'Cart',
   `CreatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`OrderID`),
   KEY `UserID` (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
@@ -146,10 +143,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 INSERT INTO `orders` (`OrderID`, `UserID`, `Status`, `CreatedAt`) VALUES
 (1, 2, 'Pending', '2025-01-03 19:51:04'),
-(2, 7, 'cart', '2025-01-03 19:51:04'),
-(5, 3, 'cart', '2025-01-19 10:42:44'),
-(6, 3, 'cart', '2025-01-19 10:43:30'),
-(7, 3, 'cart', '2025-01-19 10:43:36');
+(2, 7, 'Cart', '2025-01-03 19:51:04'),
+(8, 3, 'Cart', '2025-01-19 12:29:49'),
+(9, 3, 'Cart', '2025-01-19 12:30:45'),
+(10, 3, 'Cart', '2025-01-19 12:30:50'),
+(14, 3, 'Cart', '2025-01-19 12:59:44'),
+(15, 3, 'Cart', '2025-01-19 12:59:57'),
+(16, 3, 'Cart', '2025-01-19 13:00:05'),
+(19, 3, 'Cart', '2025-01-19 13:06:35'),
+(20, 3, 'Cart', '2025-01-19 13:33:39');
 
 -- --------------------------------------------------------
 
@@ -177,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 INSERT INTO `products` (`ProductID`, `Name`, `Description`, `Price`, `Stock`, `CategoryID`, `ImageURL`, `CreatedAt`) VALUES
 (1, 'روسری خوشکلو', 'شسیبلاتنمکگصثقفغعه شسیبلاتنمصثقفغعه سیبلدپبرذد', 150, 8, 2, '../pic/../pic/1.jpg', '2025-01-03 04:42:29'),
-(2, 'شال برقی', 'بلبل رنگی تو چقدر قشنگی', 130, 5, 1, NULL, '2025-01-03 04:42:29'),
+(2, 'شال برقی', 'بلبل رنگی تو چقدر قشنگی', 130, 1, 1, NULL, '2025-01-03 04:42:29'),
 (3, 'روسری بیلی', 'زنطیظسیقطزبراذتد صسیبلاتدپن صسیبلاتپنوم ', 150, 4, 1, '../pic/12.png', '2025-01-17 18:54:34'),
 (5, 'دسته بیل صنعتی', 'رو سه پایه است', 200, 12, 3, '../pic/12.jpg', '2025-01-19 09:38:23'),
 (6, 'عنصر چهلم', 'وارداتی', 300, 5, 2, NULL, '2025-01-19 09:38:23');
