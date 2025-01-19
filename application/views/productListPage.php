@@ -134,5 +134,30 @@
             </div>
         </section>
     </main>
+  <!-- Footer -->
+  <footer class="footer">
+        <div class="container border">
+            <p>ارتباط با ما</p>
+            <p>آدرس: تهران، خیابان 15 خرداد</p>
+            <p>تلفن: 09101234567</p>
+    
+            <!-- Links -->
+            <div class="social-links">
+                <a href="https://twitter.com" target="_blank" class="social-icon twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://t.me" target="_blank" class="social-icon telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="tel:02112345678" class="social-icon phone">
+                    <i class="fas fa-phone-alt"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+    
 </body>
 </html>

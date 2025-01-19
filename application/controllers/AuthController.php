@@ -468,8 +468,7 @@ class AuthController extends CI_Controller {
         
         $this->load->model('UserModel');
 
-        $data1 = $this->UserModel->showUserData($userID);
-        $data['data1'] = json_encode($data1);
+        $data['info'] = $this->UserModel->showUserData($userID);
 
         $orderData = array (
             'UserID' => $userID,
@@ -519,10 +518,10 @@ class AuthController extends CI_Controller {
 
         $data['info'] = $this->UserModel->showUserData($userID);
 
-        $orderResult = $this->UserModel->deleteOdrer($orderID);
-        $orderDetailResult = $this->UserModel->deleteOdrerDetail($orderID);
-
-        if ($orderResult and $orderDetailResult) {
+        $orderDetailResult = $this->UserModel->deleteOrderDetail($orderID);
+        $orderResult = $this->UserModel->deleteOrder($orderID);
+      
+        if ($orderResult == true and $orderDetailResult == true) {
 
             $this->load->view('success_alert',$data); 
         } else {
@@ -540,7 +539,7 @@ class AuthController extends CI_Controller {
         $this->load->model('UserModel');		  
             
         $data['info'] = $this->UserModel->showUserData($userID);
-        $data['products'] = $this->UserModel->showCartList($userID);
+        $data['cartItems'] = $this->UserModel->showCartList($userID);
             
         $this->load->view('cartListPage',$data);
     }
@@ -552,25 +551,29 @@ class AuthController extends CI_Controller {
         
         $this->load->model('UserModel');
 
-        $$data['info'] = $this->UserModel->showUserData($userID);
+        $data['info'] = $this->UserModel->showUserData($userID);
 
-        $quantity = $_POST['quantity'];
-        $productID = $_POST['productID'];
-        $orderID = $_POST['orderID'];
+        $orderData = $this->UserModel->returnOrdersData($userID);
+        
+        if(isset($orderData)){
 
-        $checkResult = $this->UserModel->checkProductStock ($productID,$quantity);
-        if ($checkResult) {
+            foreach($orderData as $key => $row) { 
 
-            $stockResult = $this->UserModel->updateProductStock($productID,$quantity);
-            $statusResult = $this->UserModel->updateOrderStatus($orderID);
+                $checkResult = $this->UserModel->checkProductStock ($row['ProductID'],$row['Quantity']);
+                if ($checkResult) {
 
-            if ($statusResult and $stockResult) {
+                    $stockResult = $this->UserModel->updateProductStock($row['ProductID'],$row['Quantity']);
+                    $statusResult = $this->UserModel->updateOrderStatus($row['OrderID']);
 
-                $this->load->view('success_alert',$data);
-            } else {
-
-                $this->load->view('error_alert',$data);
+                    if ($statusResult == false or $stockResult == false) {
+                        break;
+                    }
+                } else {
+                    $this->load->view('error_alert',$data);
+                }
             }
+
+            $this->load->view('success_alert',$data); 
         } else {
 
             $this->load->view('error_alert',$data);

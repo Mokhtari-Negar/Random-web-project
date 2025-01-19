@@ -139,9 +139,13 @@
                     }
                 } ?>
 
-                </div>
-                <div class="view-more-container">
+                    <a href="<?php echo base_url(); ?>index.php/AuthController/productList">
+                        <div class="product-card">
+                        <h3> لیست همه محصولات</h3>
+                    </div></a>
+                    <!-- <div class="view-more-container">
                     <a href="<?php echo base_url(); ?>index.php/AuthController/productList" class="view-more-btn">بیشتر</a>
+                </div> -->
                 </div>
             </div>
         </section>

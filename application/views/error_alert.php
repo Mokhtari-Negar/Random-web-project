@@ -102,10 +102,10 @@
     ?>
    
     
-	<main>
+	<main class="main">
 		<div >
-			<div >
-				<div class="alert alert-success">
+            <div class="product-list">
+                 <div class="product-item">
 					<strong style="font-family: iybd">&nbsp;&nbsp;عملیات نا موفق!</strong>
 
 				</div>				

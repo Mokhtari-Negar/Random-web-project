@@ -105,7 +105,7 @@
    
    <!-- end header -->
 
-   <main>
+   <main class="main">
     <section>
         <?php if (isset($products)){
             foreach($products as $pKey => $pRow) { 
@@ -131,7 +131,9 @@
                                 <div class="quantity">
                                     <label for="quantity">تعداد: <?php echo $pRow['Stock']; ?></label>
                                     <form action="<?php  echo base_url(); ?>index.php/AuthController/addToCart" method="post">
-                                        <input type="number" id="quantity" name="stock" value="1" min="1">
+                                        <input type="number" id="quantity" name="quantity" value="1" min="1">
+                                        <input type="hidden" name="productID" value="<?php echo $productID;?>">
+                                        <input type="hidden" name="price" value="<?php echo $pRow['Price']; ?>">
                                         <button class="add-to-cart">اضافه کردن به سبد خرید</button>
                                     </form>
                                 </div>

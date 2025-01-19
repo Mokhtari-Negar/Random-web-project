@@ -13,7 +13,9 @@ body {
     margin: 0 auto;
 }
 
-
+.main{
+    margin-top: 240px;
+}
 
 .header {
     position: fixed;

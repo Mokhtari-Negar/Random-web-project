@@ -193,9 +193,9 @@ class UserModel extends CI_Model {
         return $result;
     }
 
-    public function deleteOdrer ($orderID) {
+    public function deleteOrder ($orderID) {
         
-        $sql="delete from orders where OrderID=".$orderID;
+        $sql="DELETE FROM `orders` WHERE OrderID=".$orderID;
         $query= $this->db->query($sql);
         
         if ($query) {
@@ -223,14 +223,14 @@ class UserModel extends CI_Model {
 
     public function showCartList($userID) {
 
-        $sql = "SELECT * FROM `orderdetails` INNER JOIN `orders` ON orderdetails.OrderID = orders.OrderID WHERE orders.UserID = ".$userID." ORDER BY Status ASC";
+        $sql = "SELECT * FROM `orderdetails` INNER JOIN `orders` ON orderdetails.OrderID = orders.OrderID INNER JOIN products ON orderdetails.ProductID = products.ProductID WHERE orders.UserID = ".$userID." ORDER BY Status ASC";
         $query = $this->db->query($sql);
         return $query->result_array();
     }
 
    public function updateOrderStatus ($orderID) {
     
-        $sql = "update orders set Status='".$_POST['status']."' where OrderID=".$orderID;
+        $sql = "update orders set Status='Pending' where OrderID=".$orderID;
         $query= $this->db->query($sql);
         
         if ($query) {
@@ -244,7 +244,7 @@ class UserModel extends CI_Model {
 
     public function updateProductStock ($productID,$quantity) {
 
-        $sql = "update products set Stock= Stock -'".$quantity."' where ProductID=".$productID;
+        $sql = "update products set Stock = Stock - ".$quantity." where ProductID=".$productID;
         $query= $this->db->query($sql);
 
         if ($query) {
@@ -262,7 +262,14 @@ class UserModel extends CI_Model {
         $query= $this->db->query($sql);
         return $query->num_rows() > 0;
     }
-    
+
+    public function returnOrdersData ($userID) {
+
+        $sql = 'SELECT * FROM `orders` INNER JOIN `orderdetails` ON orders.OrderID = orderdetails.OrderID WHERE UserID = '.$userID.' AND Status = "Cart"';
+        $query= $this->db->query($sql);
+        return $query->result_array();
+    }
+
 
 }
 

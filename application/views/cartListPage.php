@@ -17,12 +17,14 @@
     </style>
 
 <?php
+    $userID = -1;
     if (isset($info)) {
     foreach ($info as $key => $row) {
+        $userID = $row['UserID'];
         if ($row['UserID']==1 || $row['UserID']==2){   
 ?>
 
-<title>Scarf Gallery » Admin Panel » Cart</title>
+<title>Scarf Gallery » Cart</title>
 </head>
 
 <body>
@@ -49,7 +51,7 @@
         } else {
     ?>
     
-<title>Scarf Gallery » User Panel » Cart</title>
+<title>Scarf Gallery » Cart</title>
 </head>
 
 <body>
@@ -71,33 +73,9 @@
         </div>
     </header>
     <?php
+            }
         }
     }
-} else {
-    ?>
-    
-<title>Scarf Gallery » Cart</title>
-</head>
-
-<body>
-    <header class="header">
-        <div class="snow"></div> 
-        <div class="container">
-            <a style="color: rgb(255, 255, 255);" href="<?php echo base_url(); ?>"> 
-                    <h1 class="logo">Scarf Gallery</h1>
-            </a>
-            <nav class="nav">
-                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/register">عضویت</a>
-                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/login">ورود</a>
-                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/login">سبد خرید</a>
-                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/about">درباره ما</a>
-                <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/contact">تماس با ما</a>
-            </nav>
-        </div>
-    </header>
-
-    <?php
-        }
     ?>
 
 
@@ -107,27 +85,67 @@
             <div class="product-list">
                 <h1 align = "center">لیست  محصولات</h1>
                 <?php
-                    if (isset($products)) {
-                        foreach($products as $key => $row) {
+                    if (isset($cartItems)) {
+                        $totalPrice = 0 ;
+                        foreach($cartItems as $key => $row) {
+                            if ($row['Status'] == "Cart") {
+                                $totalPrice += $row['TotalAmount'];
+                            }
                 ?>
                 <div class="product-item">
-                    <div class="product-info">
+                    <a href = "<?php echo base_url(); ?>index.php/AuthController/showProduct/<?php echo $row['ProductID'];?>" ><div class="product-info">
                         <p class="product-name"><?php echo $row['Name'] ; ?></p>
-                        <p class="product-description"><?php echo $row['Description']; ?></p>
-                        <p class="product-stock">تعداد موجود: <?php echo $row['Stock']; ?></p>
-                    </div>
+                        <p class="product-stock">تعداد: <?php echo $row['Quantity']; ?></p>
+                        <p class="product-description">هزینه سفارش: <?php echo $row['TotalAmount']; ?></p>
+                    </div></a>
                     <div class="product-actions">
-                        <a href = "<?php echo base_url(); ?>index.php/AuthController/loadEditProduct/<?php echo $row['ProductID']; ?>" ><button class="edit">ویرایش</button></a>
-                        <a href = "<?php echo base_url(); ?>index.php/AuthController/deleteProduct/<?php echo $row['ProductID']; ?>" ><button class="delete">حذف</button></a>
+                        <?php if($row['Status'] == "Cart") {?>
+                        <a href = "<?php echo base_url(); ?>index.php/AuthController/deleteFromCart/<?php echo $row['OrderID']; ?>" ><button class="delete">حذف از سبد خرید</button></a>
+                        <?php } else {?>
+                        <p class="product-description"><?php echo $row['Status']; ?></p>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php 
                         }
                     } 
                 ?>
+                 <div class="product-item">
+                    <div class="product-info">
+                        <p class="product-name">مجموع سفارشات تایید نشده: <?php echo $totalPrice ; ?></p>
+                    </div>
+                    <div class="product-actions">
+                        <a href = "<?php echo base_url(); ?>index.php/AuthController/purchase"><button class="add-to-cart">خرید</button></a>
+                    </div>
+                </div>
                 </div>
             </div>
         </section>
     </main>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container border">
+            <p>ارتباط با ما</p>
+            <p>آدرس: تهران، خیابان 15 خرداد</p>
+            <p>تلفن: 09101234567</p>
+    
+            <!-- Links -->
+            <div class="social-links">
+                <a href="https://twitter.com" target="_blank" class="social-icon twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://t.me" target="_blank" class="social-icon telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="tel:02112345678" class="social-icon phone">
+                    <i class="fas fa-phone-alt"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+    
 </body>
 </html>
