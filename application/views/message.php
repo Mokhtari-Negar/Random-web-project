@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/style_main.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/style_productlist.css">
     <link rel="shortcut icon" href="<?php echo base_url(); ?>pic/favicon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -104,48 +105,19 @@
 }
     ?>
    
-   <!-- end header -->
+    
+	<main class="main">
+		<div >
+			<div class="product-list">
+				<div class="product-item">
+					<strong style="font-family: iybd">&nbsp;&nbsp;درخواست شما به ادمین سایت ارسال شد!</strong>
 
-    <main class="main">
-        <section class="winter-panel">
-            <div class="container">
-                <div class="grid-2x2">
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/1"><div class="grid-item">شال</div></a>
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/2"><div class="grid-item">روسری</div></a>
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/3"><div class="grid-item">مینی اسکارف</div></a>
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/design"><div class="grid-item">خودت طراحی کن!</div></a>
-                </div>
-            </div>
-        </section>
+				</div>				
+			</div>
+		</div>		
+    </main>	
 
-        <section class="recent-products">
-            <div class="container">
-                <h2>محصولات اخیر</h2>
-                <div class="product-grid">
-                <?php
-                $i = 1;
-                foreach($products as $key => $row) {
-
-                    if ($i <= 8){ ?>
-
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/showProduct/<?php echo $row['ProductID'];?>">
-                        <div class="product-card">
-                        <img src="<?php echo base_url().$row['ImageURL']; ?>" alt="<?php echo $row['Name']; ?>">
-                        <h3><?php echo $row['Name']; ?></h3>
-                    </div></a>
-
-                <?php $i++; 
-                    } else {
-                        
-                        break;
-                    }
-                } ?>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
+       <!-- Footer -->
     <footer class="footer">
         <div class="container border">
             <p>ارتباط با ما</p>

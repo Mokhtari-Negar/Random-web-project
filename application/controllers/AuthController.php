@@ -62,6 +62,9 @@ class AuthController extends CI_Controller {
                 $this->load->view('insertProductPage',$data);
                 break;
 
+            case "design":
+                $this->load->view('design',$data);
+                break;
 
             default:
                 echo "Your favorite color is neither red, blue, nor green!";
@@ -277,6 +280,23 @@ class AuthController extends CI_Controller {
 	 
     }
 
+    public function designOrder() {
+        
+        $this->load->library('session');
+        $data = array();
+
+        if ($this->session->has_userdata('userID')) {
+
+            $userID = $this->session->userdata('userID');
+            
+            $this->load->model('UserModel');
+            $data['info'] = $this->UserModel->showUserData($userID);
+            
+        }
+
+        $this->load->view('message',$data);
+    }
+
     public function showProduct ($productID) {
 
         $this->load->library('session');
@@ -362,7 +382,7 @@ class AuthController extends CI_Controller {
                 'Price' =>  $this->input->post('price'),
                 'Stock' =>  $this->input->post('stock'),
                 'CategoryID' =>  $this->input->post('catID'),
-                'ImageURL' => "../pic/". $this->input->post('imageName'),
+                'ImageURL' => "pic/". $this->input->post('imageName'),
             );
 
             $result=$this->UserModel->insertProduct($productData);

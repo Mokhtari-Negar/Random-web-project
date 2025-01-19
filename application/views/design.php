@@ -14,6 +14,56 @@
             src: url('fonts/BNazanin.ttf') format('ttf'),
                  url('fonts/BNazanin.ttf') format('ttf');
         }
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4f899c;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group button {
+            display: block;
+            width: 100%;
+            background-color: #4f899c;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #2f6077;
+        }
     </style>
 
 <?php
@@ -108,40 +158,45 @@
 
     <main class="main">
         <section class="winter-panel">
-            <div class="container">
-                <div class="grid-2x2">
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/1"><div class="grid-item">شال</div></a>
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/2"><div class="grid-item">روسری</div></a>
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/productCategorizedList/3"><div class="grid-item">مینی اسکارف</div></a>
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/design"><div class="grid-item">خودت طراحی کن!</div></a>
-                </div>
+                    
+                <div class="form-container">
+                <h1>خودت طراحی کن! </h1>
+                <form action="<?php echo base_url() ?>index.php/AuthController/designOrder" method="post">
+                    <div class="form-group">
+                        <label for="itemType">نوع سفارش:</label>
+                        <select id="itemType" name="itemType">
+                            <option value="2">روسری</option>
+                            <option value="1">شال</option>
+                            <option value="3">مینی اسکارف</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fabricType">جنس پارچه:</label>
+                        <select id="fabricType" name="fabricType">
+                            <option value="wool">پشمی</option>
+                            <option value="cotton">نخی</option>
+                            <option value="silk">حریر</option>
+                            <option value="satin">ساتن</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pattern">طرح:</label>
+                        <select id="pattern" name="pattern">
+                            <option value="floral">گل‌دار</option>
+                            <option value="dotted">خال‌خال</option>
+                            <option value="plain">ساده</option>
+                            <option value="fansy">فانتزی</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit">ثبت سفارش</button>
+                    </div>
+                </form>
             </div>
-        </section>
 
-        <section class="recent-products">
-            <div class="container">
-                <h2>محصولات اخیر</h2>
-                <div class="product-grid">
-                <?php
-                $i = 1;
-                foreach($products as $key => $row) {
-
-                    if ($i <= 8){ ?>
-
-                    <a href="<?php echo base_url(); ?>index.php/AuthController/showProduct/<?php echo $row['ProductID'];?>">
-                        <div class="product-card">
-                        <img src="<?php echo base_url().$row['ImageURL']; ?>" alt="<?php echo $row['Name']; ?>">
-                        <h3><?php echo $row['Name']; ?></h3>
-                    </div></a>
-
-                <?php $i++; 
-                    } else {
-                        
-                        break;
-                    }
-                } ?>
-                </div>
-            </div>
         </section>
     </main>
 
@@ -172,4 +227,3 @@
     
 </body>
 </html>
-
