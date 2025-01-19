@@ -39,6 +39,7 @@
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/insertProduct">درج محصول</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/productList">ویرایش محصولات</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/showUserData">ویرایش اطلاعات</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/productList">لیست محصولات</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/showCartItems">سبد خرید</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/about">درباره ما</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/contact">تماس با ما</a>
@@ -64,6 +65,7 @@
             <nav class="nav">
                 <a href="<?php echo base_url(); ?>index.php/AuthController/showUserData">ویرایش اطلاعات</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/showUserComments">نظرات ثبت شده</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/productList">لیست محصولات</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/showCartItems">سبد خرید</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/about">درباره ما</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/contact">تماس با ما</a>
@@ -90,6 +92,7 @@
             <nav class="nav">
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/register">عضویت</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/login">ورود</a>
+                <a href="<?php echo base_url(); ?>index.php/AuthController/productList">لیست محصولات</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/login">سبد خرید</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/about">درباره ما</a>
                 <a href="<?php echo base_url(); ?>index.php/AuthController/viewRouteControll/contact">تماس با ما</a>
